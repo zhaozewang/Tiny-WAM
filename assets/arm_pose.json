@@ -1,0 +1,104 @@
+{
+  "source_commit": "b81c32520b1d1a3b3299df0c038e042001b46ae3",
+  "source_urdf": "R1/urdf/r1_v2_1_0.urdf",
+  "status": "kinematic_assembly_checked",
+  "total_dof": 48,
+  "arm_dof_each": 6,
+  "hand_dof_each": 18,
+  "base_height_m": 0.041480509579181674,
+  "fixed": "base, wheels and torso",
+  "mount_xyz_m": [
+    0.1289,
+    0,
+    0
+  ],
+  "ik": {
+    "left": {
+      "target_world_m": [
+        0.43,
+        0.27,
+        1.03
+      ],
+      "residual": [
+        5.551115123125783e-17,
+        -1.1102230246251565e-16,
+        1.1102230246251565e-16,
+        -4.2169610225506754e-17,
+        -1.503128734976902e-17,
+        9.955403582376143e-17
+      ],
+      "joint_angles_rad": [
+        0.9837937037781131,
+        2.4577355298429393,
+        -1.502652240460781,
+        -0.4975015871563207,
+        -1.2451921434804465,
+        -2.103111929072603
+      ]
+    },
+    "right": {
+      "target_world_m": [
+        0.43,
+        -0.27,
+        1.03
+      ],
+      "residual": [
+        5.5095317197384475e-11,
+        -6.276201780508472e-11,
+        -1.9410140161824074e-11,
+        -4.54061460954562e-12,
+        -1.1040823689169757e-10,
+        -2.347700028563033e-10
+      ],
+      "joint_angles_rad": [
+        -0.9837982840546602,
+        2.4577259981578794,
+        -1.5026461015470305,
+        0.49749641508270914,
+        1.2451928481259555,
+        2.1031164083464704
+      ]
+    }
+  },
+  "table": {
+    "menagerie_commit": "4d038b3feae26ec82b46a4d586379114012a8ac7",
+    "table": "ALOHA tabletop/tablelegs OBJ + original diffuse texture; translated +0.77m in X",
+    "table_bounds": {
+      "tabletop": [
+        [
+          0.389,
+          -0.609828,
+          0.734831
+        ],
+        [
+          1.151,
+          0.609372,
+          0.750787
+        ]
+      ],
+      "tablelegs": [
+        [
+          0.445041,
+          -0.523171,
+          0.000787
+        ],
+        [
+          1.094959,
+          0.522714,
+          0.737644
+        ]
+      ]
+    }
+  },
+  "max_wrist_fk_error_m": 4.0911392624073824e-07,
+  "palm_normal_z": {
+    "left": -0.9999999999999999,
+    "right": -0.9999999999999998
+  },
+  "limitations": [
+    "Kinematic hand replay; no physics stepping or control policy test",
+    "Two copies of the supplied hand; no anatomical mirroring",
+    "25 mm simulated spacer; physical adapter and payload unverified",
+    "Collision-free motion and dynamic actuator settings not validated"
+  ]
+}

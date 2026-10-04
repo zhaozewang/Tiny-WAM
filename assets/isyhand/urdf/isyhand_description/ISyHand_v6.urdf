@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="isyhand_v6">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0495177399895986 0.0187701295137495 0.0278117919997298"
+        rpy="0 0 0" />
+      <mass
+        value="0.104649428154177" />
+      <inertia
+        ixx="1.7981139169425E-05"
+        ixy="-2.43442822908139E-07"
+        ixz="-5.99900194379237E-07"
+        iyy="3.81257693539487E-05"
+        iyz="9.34653063874429E-08"
+        izz="4.28467549238502E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/base_link.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/base_link.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="J14">
+    <inertial>
+      <origin
+        xyz="-0.000181458468270456 0.0177602180237399 0.0156181523272843"
+        rpy="0 0 0" />
+      <mass
+        value="0.0158661280310764" />
+      <inertia
+        ixx="2.31147814588714E-06"
+        ixy="-6.65129333586058E-07"
+        ixz="6.98512846691802E-08"
+        iyy="2.38938793634916E-06"
+        iyz="2.07668341807783E-07"
+        izz="2.41557645591717E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J14.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J14.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J14"
+    type="revolute">
+    <origin
+      xyz="0.0965 0.011 0.0365"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="J14" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J13">
+    <inertial>
+      <origin
+        xyz="-6.74490415811762E-05 0.0142217282369757 -0.0119164849844844"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247283888184809" />
+      <inertia
+        ixx="3.3830362571958E-06"
+        ixy="-9.76069325099602E-10"
+        ixz="9.05650679926093E-09"
+        iyy="3.28593701000397E-06"
+        iyz="6.4501873691686E-08"
+        izz="1.71522886996993E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J13.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J13.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J13"
+    type="revolute">
+    <origin
+      xyz="0.0146 0.0085 0.031"
+      rpy="-3.1416 0 -1.5708" />
+    <parent
+      link="J14" />
+    <child
+      link="J13" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.5" />
+  </joint>
+  <link
+    name="J12">
+    <inertial>
+      <origin
+        xyz="-6.74490423535363E-05 0.0142217282342309 -0.011916484980597"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247283888137803" />
+      <inertia
+        ixx="3.3830362571086E-06"
+        ixy="-9.76069308268625E-10"
+        ixz="9.05650673075061E-09"
+        iyy="3.28593700985239E-06"
+        iyz="6.4501873676757E-08"
+        izz="1.71522886989754E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J12.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J12.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J12"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J13" />
+    <child
+      link="J12" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J11">
+    <inertial>
+      <origin
+        xyz="-0.000760928284472871 0.0148930150608559 -0.0187123834125087"
+        rpy="0 0 0" />
+      <mass
+        value="0.0367266400560331" />
+      <inertia
+        ixx="5.66078144425958E-06"
+        ixy="-3.05326745210123E-08"
+        ixz="-7.16339493072125E-08"
+        iyy="4.14977557198031E-06"
+        iyz="1.45328477732749E-07"
+        izz="3.89690754389328E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J11.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J11.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J11"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J12" />
+    <child
+      link="J11" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.9" />
+  </joint>
+  <link
+    name="J51">
+    <inertial>
+      <origin
+        xyz="0.00355221658614946 0.0142056673017608 0.0312849199300446"
+        rpy="0 0 0" />
+      <mass
+        value="0.0798269224127893" />
+      <inertia
+        ixx="4.63152815751541E-05"
+        ixy="-1.85655627897577E-07"
+        ixz="-3.36506273662248E-07"
+        iyy="1.69724339896412E-05"
+        iyz="-6.70041381646587E-07"
+        izz="3.9725108721527E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J51.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J51.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J51"
+    type="revolute">
+    <origin
+      xyz="0.072 0.0323 0.0277"
+      rpy="1.5708 1.5708 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="J51" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.44"
+      upper="0.44"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J34">
+    <inertial>
+      <origin
+        xyz="-0.00018145846827046 0.0177602180237399 0.0156181523272844"
+        rpy="0 0 0" />
+      <mass
+        value="0.0158661280310764" />
+      <inertia
+        ixx="2.31147814588713E-06"
+        ixy="-6.65129333586056E-07"
+        ixz="6.98512846691785E-08"
+        iyy="2.38938793634915E-06"
+        iyz="2.07668341807781E-07"
+        izz="2.41557645591716E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J34.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J34.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J34"
+    type="revolute">
+    <origin
+      xyz="-0.00865 -0.0245 0.0257"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="J51" />
+    <child
+      link="J34" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J33">
+    <inertial>
+      <origin
+        xyz="-6.744904158124E-05 0.0142217282369757 -0.0119164849844843"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247283888184809" />
+      <inertia
+        ixx="3.3830362571958E-06"
+        ixy="-9.76069325099397E-10"
+        ixz="9.05650679926151E-09"
+        iyy="3.28593701000397E-06"
+        iyz="6.45018736916861E-08"
+        izz="1.71522886996993E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J33.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J33.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J33"
+    type="revolute">
+    <origin
+      xyz="0.0146 0.0085 0.031"
+      rpy="3.1416 0 -1.5708" />
+    <parent
+      link="J34" />
+    <child
+      link="J33" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.5" />
+  </joint>
+  <link
+    name="J32">
+    <inertial>
+      <origin
+        xyz="-6.74490416795966E-05 0.0142217282524562 -0.0119164850072149"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247283888450512" />
+      <inertia
+        ixx="3.3830362576437E-06"
+        ixy="-9.76069315098406E-10"
+        ixz="9.05650676783528E-09"
+        iyy="3.28593701076819E-06"
+        iyz="6.45018737868168E-08"
+        izz="1.71522887032813E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J32.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J32.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J32"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J33" />
+    <child
+      link="J32" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J31">
+    <inertial>
+      <origin
+        xyz="-0.000760924581633055 0.0148930181623144 -0.0187123970538378"
+        rpy="0 0 0" />
+      <mass
+        value="0.0367266646902952" />
+      <inertia
+        ixx="5.66078658309277E-06"
+        ixy="-3.05326370762707E-08"
+        ixz="-7.16305206389889E-08"
+        iyy="4.14977727874279E-06"
+        iyz="1.45328626758617E-07"
+        izz="3.89690882622047E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J31.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J31.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J31"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J32" />
+    <child
+      link="J31" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.9" />
+  </joint>
+  <link
+    name="J52">
+    <inertial>
+      <origin
+        xyz="0.00346683526485601 0.00945232280064392 0.0227769733091208"
+        rpy="0 0 0" />
+      <mass
+        value="0.0477929655830439" />
+      <inertia
+        ixx="2.38609835392204E-05"
+        ixy="-2.9908361584336E-07"
+        ixz="5.4589432489627E-07"
+        iyy="6.61838983026884E-06"
+        iyz="7.38965693817506E-07"
+        izz="2.40967997616141E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J52.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J52.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J52"
+    type="revolute">
+    <origin
+      xyz="0.00015 0 0.047"
+      rpy="0 0 0" />
+    <parent
+      link="J51" />
+    <child
+      link="J52" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.44"
+      upper="0.44"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J44">
+    <inertial>
+      <origin
+        xyz="-0.000181458468270501 0.0177602180237399 0.0156181523272844"
+        rpy="0 0 0" />
+      <mass
+        value="0.0158661280310764" />
+      <inertia
+        ixx="2.31147814588714E-06"
+        ixy="-6.6512933358606E-07"
+        ixz="6.98512846691785E-08"
+        iyy="2.38938793634916E-06"
+        iyz="2.07668341807782E-07"
+        izz="2.41557645591718E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J44.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J44.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J44"
+    type="revolute">
+    <origin
+      xyz="-0.00865 -0.0245 0.0257"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="J52" />
+    <child
+      link="J44" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.5"
+      upper="0.5"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J43">
+    <inertial>
+      <origin
+        xyz="-6.74490491749196E-05 0.0142217282066306 -0.0119164849403203"
+        rpy="0 0 0" />
+      <mass
+        value="0.024728388766401" />
+      <inertia
+        ixx="3.38303625603096E-06"
+        ixy="-9.76069165591777E-10"
+        ixz="9.05650604550364E-09"
+        iyy="3.28593700828299E-06"
+        iyz="6.45018735035151E-08"
+        izz="1.71522886933061E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J43.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J43.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J43"
+    type="revolute">
+    <origin
+      xyz="0.0146 0.0085 0.031"
+      rpy="-3.1416 0 -1.5708" />
+    <parent
+      link="J44" />
+    <child
+      link="J43" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.5" />
+  </joint>
+  <link
+    name="J42">
+    <inertial>
+      <origin
+        xyz="-6.74494027153522E-05 0.0142217273082932 -0.0119164844594338"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247283870830894" />
+      <inertia
+        ixx="3.38303606894289E-06"
+        ixy="-9.76072160208044E-10"
+        ixz="9.05659805567201E-09"
+        iyy="3.28593677723408E-06"
+        iyz="6.45018677934207E-08"
+        izz="1.71522882544527E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J42.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J42.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J42"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J43" />
+    <child
+      link="J42" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J41">
+    <inertial>
+      <origin
+        xyz="-0.000760930452855234 0.0148930176345285 -0.0187123912562775"
+        rpy="0 0 0" />
+      <mass
+        value="0.0367266272414315" />
+      <inertia
+        ixx="5.66077466599937E-06"
+        ixy="-3.05338131341029E-08"
+        ixz="-7.16300424902609E-08"
+        iyy="4.1497689253505E-06"
+        iyz="1.45323017630666E-07"
+        izz="3.89690393585919E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J41.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J41.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J41"
+    type="revolute">
+    <origin
+      xyz="3.9445E-05 0 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J42" />
+    <child
+      link="J41" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.9" />
+  </joint>
+  <link
+    name="J24">
+    <inertial>
+      <origin
+        xyz="-0.000125225909356125 0.0176333759499297 0.0169898703569858"
+        rpy="0 0 0" />
+      <mass
+        value="0.0167718415507966" />
+      <inertia
+        ixx="2.53399476990947E-06"
+        ixy="-7.01288709449929E-07"
+        ixz="6.45703767501729E-08"
+        iyy="2.62038821519595E-06"
+        iyz="2.17956371123207E-07"
+        izz="2.54280586974271E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J24.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J24.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J24"
+    type="revolute">
+    <origin
+      xyz="0.039895 0.024634 0.0495"
+      rpy="0 0 1.8326" />
+    <parent
+      link="base_link" />
+    <child
+      link="J24" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.13"
+      upper="1.13"
+      effort="0.93"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J23">
+    <inertial>
+      <origin
+        xyz="0.00361547556118514 0.013754270059659 -0.0119161284463678"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247278604156035" />
+      <inertia
+        ixx="3.37599982604129E-06"
+        ixy="-2.51288824014666E-08"
+        ixz="2.54377935578185E-08"
+        iyy="3.29286614307354E-06"
+        iyz="5.99619186743036E-08"
+        izz="1.71520483128354E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J23.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J23.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J23"
+    type="revolute">
+    <origin
+      xyz="0.0146 0.0085 0.033"
+      rpy="3.1416 0 -1.8326" />
+    <parent
+      link="J24" />
+    <child
+      link="J23" />
+    <axis
+      xyz="-0.25882 -0.96593 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.5" />
+  </joint>
+  <link
+    name="J22">
+    <inertial>
+      <origin
+        xyz="0.0036154755611094 0.0137542700563177 -0.011916128441583"
+        rpy="0 0 0" />
+      <mass
+        value="0.0247278604100339" />
+      <inertia
+        ixx="3.37599982591296E-06"
+        ixy="-2.51288824389176E-08"
+        ixz="2.54377936433135E-08"
+        iyy="3.29286614289437E-06"
+        iyz="5.99619186297295E-08"
+        izz="1.71520483119308E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J22.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J22.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J22"
+    type="revolute">
+    <origin
+      xyz="3.8101E-05 -1.0209E-05 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J23" />
+    <child
+      link="J22" />
+    <axis
+      xyz="-0.25882 -0.96593 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.7" />
+  </joint>
+  <link
+    name="J21">
+    <inertial>
+      <origin
+        xyz="0.00311960115080133 0.0145824920048621 -0.0187123915618034"
+        rpy="0 0 0" />
+      <mass
+        value="0.036726647599539" />
+      <inertia
+        ixx="5.54429957279339E-06"
+        ixy="-4.04194467965719E-07"
+        ixz="-3.15759287610527E-08"
+        iyy="4.26626027297354E-06"
+        iyz="1.58916452237538E-07"
+        izz="3.8969072440879E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J21.obj" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="isyhand_description/meshesv6/J21.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J21"
+    type="revolute">
+    <origin
+      xyz="3.8101E-05 -1.0209E-05 -0.039938"
+      rpy="0 0 0" />
+    <parent
+      link="J22" />
+    <child
+      link="J21" />
+    <axis
+      xyz="-0.25882 -0.96593 0" />
+    <limit
+      lower="-0.2"
+      upper="1.57"
+      effort="0.52"
+      velocity="5.9" />
+  </joint>
+</robot>
