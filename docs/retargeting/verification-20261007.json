@@ -1,0 +1,45 @@
+{
+  "scope": "Documentation-time verification from a staged code/assets export; existing Remi environments and frozen private inputs reused",
+  "snapshot": "/tmp/swam-retarget-verify-hxp19T",
+  "outputs": "results/retarget_documentation_verification_20261007",
+  "tests": {
+    "compare_passed": 16,
+    "rgb_passed": 3,
+    "skipped": 0,
+    "known_warnings": [
+      "Equivalent Euler decomposition at gimbal lock in URDF export",
+      "Tensor-to-float conversion in existing SciPy objective"
+    ]
+  },
+  "frozen_arms": {
+    "frames": 33,
+    "hand_parameters_modified": false,
+    "visible_hand_pixels_identical_before_encoding": true,
+    "max_wrist_transform_error": 3.552713678800501e-15,
+    "max_hand_joint_position_error": 5.384581669432009e-15,
+    "arm_joint_arrays_exactly_match_original": true,
+    "arm_base_arrays_exactly_match_original": true,
+    "arm_masks_exactly_match_original": true,
+    "arm_rgb_max_difference_uint8": 1,
+    "arm_rgb_mean_absolute_difference_uint8": 4.871243297169224e-7,
+    "arm_rgb_different_channel_fraction": 4.871243297169224e-7,
+    "video": {"width": 960, "height": 540, "frames": 33, "fps": 15, "seconds": 2.2}
+  },
+  "robot_without_legacy_reference": {
+    "clip": "screw_unscrew_bottle_cap",
+    "frames": 33,
+    "qpos_intrinsics_and_source_indices_exactly_match_original": true,
+    "robot_masks_exactly_match_original": true,
+    "rgb_max_difference_uint8": 134,
+    "rgb_mean_absolute_difference_uint8": 0.00470973235440828,
+    "rgb_different_channel_fraction": 0.0003806974061603691,
+    "rgb_difference_cause": "Not isolated; no claim of pixel-bit-exact reproduction",
+    "mean_tip_error_native_rgb_px": {"left": 2.5222004132477105, "right": 2.7393070454244626}
+  },
+  "not_tested_here": [
+    "Clean-machine dependency installation",
+    "New WiLoR or SAM inference from raw footage",
+    "Physical grasp, contact, collision or shared-torso accuracy"
+  ],
+  "publication": "Local commit only; no push, raw media and model weights excluded"
+}

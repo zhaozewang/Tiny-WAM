@@ -1,0 +1,37 @@
+{
+  "request": "Add carefully fitted arms while preserving the newly approved bottle hand positions",
+  "accepted_baseline": "results/rgb_robot_bottle_alignment_v3",
+  "output": "results/rgb_robot_bottle_arms_v1",
+  "media": ["robot_arms.mp4", "comparison.mp4", "closeup.mp4", "contact_sheet.png"],
+  "frames": 33,
+  "fps": 15,
+  "source_indices": "20,22,...,84",
+  "method": {
+    "kinematics": "Native six-joint Galaxea R1 arm solved BACKWARD from the immutable accepted Sharpa hand root. Per-side arm base inferred for each frame.",
+    "hand_parameters": "Not optimization variables. No changes to root translation, root rotation, finger angles or scale.",
+    "mount": "Existing +90deg Y Sharpa-to-R1 adapter, flange face x=0.03425, 12mm spacer; native dimensions, no axial wrist scaling.",
+    "fit": "SAM2 sleeve masks supply visible forearm direction. Bounded arm-only line fitting plus rendered silhouette coordinate descent. No EgoDex pose supervision.",
+    "temporal": "Sleeve endpoint sigma=1 frame; new arm joints capped at 0.3 rad per source-selected frame. Hand trajectory not smoothed.",
+    "composite": "Reuse exact approved hand RGB and masks. New arms are a proximal layer, excluded from accepted hand mask and visible bottle/cap masks. Original human pixels outside coverage remain."
+  },
+  "validation": {
+    "max_wrist_transform_roundtrip_error": 3.552713678800501e-15,
+    "max_hand_joint_position_roundtrip_error": 5.384581669432009e-15,
+    "accepted_visible_hand_pixels_identical_before_video_encoding": true,
+    "input_file_sha256_unchanged": true,
+    "joint_limit_excess": 0,
+    "max_arm_joint_step_rad": 0.30000000000000004,
+    "tests": "12 passed: wrist hard constraint, native/FK adapter, joint mapping and occlusion invariants.",
+    "visual": "Inspected first/middle/end full frames plus nine distributed frames in contact sheet. Native wrist joins remain connected; right forearm is mostly outside image when the approved root is at/below image bottom."
+  },
+  "limitations": [
+    "This is visible-arm visual fitting, not a single fixed-base or shared-torso whole-body IK solution.",
+    "WiLoR virtual depths are not calibrated metric scene coordinates and must not be used on hardware.",
+    "No physical contact, collision or arm/hand interpenetration validation. The proximal compositing layer explicitly protects the accepted hand pixels.",
+    "Sleeve coverage is incomplete. No inpainting or human-arm removal outside robot coverage.",
+    "Right hand root is near/outside the lower frame boundary in some accepted frames. It was not shifted to make the arm visible."
+  ],
+  "files": ["src/swam/retargeting/anchored_arm.py", "scripts/fit_arms_to_frozen_hands.py", "tests/test_wrist_anchored_arm.py", "notes/rgb_bottle_sleeves_prompts_v1.json"],
+  "pilot_provenance": "Two three-frame pilots retained. V1 initialized mirrored arm joint signs incorrectly; corrected using actual vendor limits before full render.",
+  "preservation": "No previous results overwritten, no training jobs changed, no commit/push/server, all own jobs finished."
+}

@@ -1,0 +1,46 @@
+{
+  "request": "Replace the approved RGB-only hand estimates with robot hands",
+  "status": "Two short visual hand-replacement previews completed; not a physically validated demonstration",
+  "script": "scripts/render_rgb_robot_hands.py",
+  "tests": "tests/test_rgb_robot_hands.py plus previous adapter/compositing tests: 11 passed",
+  "environment": "/home/zw/.cache/swam-retarget/compare-env/bin/python",
+  "input": "results/rgb_hands_wilor_v2/{use_chopsticks,screw_unscrew_bottle_cap}/predictions.json",
+  "outputs": "results/rgb_robot_hands_v1/{use_chopsticks,screw_unscrew_bottle_cap}",
+  "preview_files": ["robot_hands.mp4", "comparison.mp4", "right_hand_detail.mp4"],
+  "saved_data": ["qpos.npz", "robot_render.npz", "report.json", "left.urdf", "right.urdf", "left_paper_config.json", "right_paper_config.json"],
+  "method": {
+    "hand": "Sharpa native vendor geometry and joint limits; scale 1.0",
+    "wrist": "Six virtual floating DOFs, not a physical R1 arm",
+    "camera": "Same virtual focal as the accepted WiLoR output (37500px at 1920x1080); preserves its reprojection rather than treating virtual translation as calibrated depth",
+    "initialization": "Official Analyzing Key Objectives retargeter, author ablation 2 retaining actual fingertip separation; adapted floating-wrist URDF",
+    "refinement": "Custom bounded pixel reprojection / distal direction / relative shape objective against WiLoR landmarks, with weak joint regularization",
+    "mapping": "WiLoR wrist-thumb-index-middle-ring-little reordered to existing Sharpa wrist-index-middle-ring-little-thumb",
+    "human_arm": "Original video forearms retained",
+    "composite": "Robot RGB where robot geometry rasterizes; no object matte or inpainting applied",
+    "old_reference": "Previous EgoDex-driven native-size paper_actual_distance output includes robot arms; qualitative reference, not controlled arm-ablation comparison"
+  },
+  "results": {
+    "frames_each": 33,
+    "fps": 15,
+    "duration_seconds": 2.2,
+    "render_size": [960, 540],
+    "mean_tip_error_at_native_1920px_against_wilor": {
+      "chopsticks_left": 1.6176,
+      "chopsticks_right": 1.9765,
+      "bottle_left": 2.5222,
+      "bottle_right": 2.7393
+    },
+    "limits": "No joint-limit excess in saved solutions",
+    "optimizer": "All 132 side/frame refinements reached the 250-iteration budget rather than convergence tolerance. Finite bounded preview solutions, not claimed optimal. Per-frame status saved",
+    "visual": "Inspected middle and end comparisons; native robot fingertips follow visible hand/tool region substantially better than prior EgoDex-driven rendering, but object ordering and remaining human pixels are unresolved"
+  },
+  "important_limits": [
+    "WiLoR is an estimator, not ground truth",
+    "Virtual-camera wrist translations (including 12-22m depth) must not be sent to hardware or treated as actual room trajectories",
+    "No object geometry, contact force, penetration or self-collision validation",
+    "No removal of exposed original human hand pixels",
+    "No depth-aware hand/object compositing",
+    "This is hand-only visual replacement, not connected whole-arm retargeting"
+  ],
+  "preservation": "Old results and production pipeline unchanged; no training, commit, upload or push"
+}

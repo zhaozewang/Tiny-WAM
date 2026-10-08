@@ -1,0 +1,11 @@
+{
+  "size": [512,288],
+  "objects": [
+    {"id": 1, "role": "hand", "name": "left_sleeve", "annotations": [
+      {"frame": 0, "points": [[165,250],[136,267],[101,283],[210,225],[107,236],[495,280]], "labels": [1,1,1,0,0,0]}
+    ]},
+    {"id": 2, "role": "hand", "name": "right_sleeve", "annotations": [
+      {"frame": 0, "points": [[487,280],[502,285],[430,262],[497,256],[136,267]], "labels": [1,1,0,0,0]}
+    ]}
+  ]
+}

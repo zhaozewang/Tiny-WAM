@@ -1,0 +1,57 @@
+{
+  "status": "Two RGB-only hand-estimation pilots completed; not accepted as exact 3D ground truth or production retargeting",
+  "request": "Re-estimate hand poses from RGB after observing EgoDex reprojection mismatch",
+  "entrypoint": "scripts/reestimate_egodex_rgb.py",
+  "environment": "/home/zw/.cache/swam-retarget/rgb-env/bin/python",
+  "base_environment": "Read-only inherited dexverse-stack Python 3.11 / torch 2.7 cu128; extra dependencies installed only in rgb-env",
+  "models": {
+    "wilor": "CVPR 2025 WiLoR, via WiLoR-mini simplified demo inference package linked by official repository",
+    "official_repository": "https://github.com/rolpotamias/WiLoR",
+    "wrapper_repository": "https://github.com/warmshao/WiLoR-mini",
+    "weights": "/home/zw/.cache/swam-retarget/wilor-weights",
+    "mediapipe": "0.10.21 Hands, static-image mode, model complexity 1, max 2 hands, minimum detection confidence 0.5"
+  },
+  "protocol": {
+    "inputs": "Original 1920x1080 RGB frames only; no EgoDex pose/box/hand identity supplied to either estimator",
+    "clips": ["use_chopsticks", "screw_unscrew_bottle_cap"],
+    "frames_per_clip": 33,
+    "original_indices": "20:86:2",
+    "output_fps": 15,
+    "duration_seconds": 2.2,
+    "wilor_precision": "float32",
+    "camera": "Unmodified default virtual focal length; not metric-calibrated world-frame 3D",
+    "temporal_smoothing": false,
+    "v1": "Unmodified detector produced duplicate opposite-handedness boxes: 8 chopsticks frames and 1 bottle frame had 3 detections",
+    "v2": "Detector max_det=2, agnostic_nms=true, iou=0.45, conf=0.3 for known single-wearer videos; no pose smoothing",
+    "v2_identity_audit": "Every sampled frame in both clips has one label 0 and one label 1. This is not proof of pose accuracy"
+  },
+  "outputs": {
+    "primary": "results/rgb_hands_wilor_v2",
+    "unfiltered_preserved": "results/rgb_hands_wilor_v1",
+    "failed_startup_preserved": "results/rgb_hands_smoke_v1",
+    "smoke_preserved": "results/rgb_hands_smoke_v2",
+    "per_clip_files": ["comparison.mp4", "right_hand_detail.mp4", "wilor.mp4", "mediapipe.mp4", "egodex.mp4", "predictions.json", "summary.json"],
+    "prediction_contents": "Per-frame native RGB 2D keypoints, wrist-relative MANO 3D joints/vertices, inferred camera translation, MANO pose/shape, detector boxes and handedness, independent MediaPipe landmarks, EgoDex 2D comparison only"
+  },
+  "judgment": {
+    "chopsticks": "WiLoR visually aligns visible fingertips and finger flexion better than the original EgoDex projection in inspected start/middle/end frames. MediaPipe frequently misses the active right hand",
+    "bottle": "Mixed improvement; occluded digits remain ambiguous or misaligned. MediaPipe sometimes looks better locally; no automatic ensemble selected",
+    "metric_accuracy": "Not measured: no independently annotated visible-keypoint ground truth or calibrated 3D ground truth",
+    "speed": "WiLoR detector plus reconstruction median approximately 0.17 seconds per 1080p frame on Remi RTX4090, excluding model loading, video decode and output encoding",
+    "production": "Do not replace existing retargeter inputs or scale to full EgoDex yet"
+  },
+  "verification": {
+    "tests": "tests/test_rgb_hand_estimation.py: 3 passed",
+    "visual": "Inspected start/middle/end RGB skeleton overlays and enlarged right-hand views in both clips",
+    "numerical": "Recorded detection counts and exact upstream revisions in per-clip summary.json",
+    "scope": "No robot overlay, contact simulation, manual pose correction, model training, old-output overwrite, commit or push"
+  },
+  "limitations": [
+    "Monocular absolute depth and scale are ambiguous",
+    "Hidden fingertips may be plausible predictions rather than observed contacts",
+    "No temporal identity association or demonstrated jitter reduction",
+    "WiLoR-mini is a demo-only simplified wrapper, not a full original-paper reproduction",
+    "WiLoR, MANO, Ultralytics and EgoDex have distinct licenses; artifacts and model files remain private local research outputs, not cleared for redistribution"
+  ],
+  "next": "Validate visible RGB landmarks and temporal consistency first; only then adapt chosen estimates to robot retargeting with explicit scale/depth calibration. Do not use EgoDex fit error as RGB alignment accuracy."
+}

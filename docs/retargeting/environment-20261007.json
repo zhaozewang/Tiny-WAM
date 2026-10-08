@@ -1,0 +1,389 @@
+{
+  "scope": "Local environment snapshot; not a portable dependency lock or redistribution approval",
+  "environments": {
+    "compare": {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/home/zw/.cache/swam-retarget/compare-env/bin/python",
+      "packages": {
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "torch": "2.14.1+cpu",
+        "pin": "4.1.0",
+        "nlopt": "2.11.0",
+        "dex-retargeting": "0.5.0",
+        "retargeting": "0.0.0",
+        "pyrender": "0.1.45",
+        "trimesh": "5.1.1",
+        "imageio": "2.38.0",
+        "imageio-ffmpeg": "0.6.0",
+        "Pillow": "12.3.0",
+        "h5py": "3.16.0",
+        "PyOpenGL": "3.1.0",
+        "hydra-core": "1.3.7",
+        "pytest": "9.1.1"
+      }
+    },
+    "rgb": {
+      "python": "3.11.16 (main, Aug 27 2026, 14:44:21) [GCC 14.3.0]",
+      "executable": "/home/zw/.cache/swam-retarget/rgb-env/bin/python",
+      "packages": {
+        "numpy": "1.26.4",
+        "scipy": "1.15.3",
+        "torch": "2.7.0+cu128",
+        "torchvision": "0.22.0+cu128",
+        "pin": "2.7.0",
+        "nlopt": "2.7.1",
+        "dex-retargeting": "0.4.6",
+        "trimesh": "4.5.1",
+        "imageio": "2.38.0",
+        "imageio-ffmpeg": "0.6.0",
+        "Pillow": "11.3.0",
+        "h5py": "3.16.0",
+        "mediapipe": "0.10.21",
+        "protobuf": "4.25.8",
+        "wilor_mini": "1.1",
+        "ultralytics": "8.1.34",
+        "smplx": "0.1.28",
+        "chumpy": "0.70",
+        "timm": "1.0.19",
+        "einops": "0.8.2",
+        "hydra-core": "1.3.6",
+        "pytest": "9.1.1"
+      }
+    },
+    "segmentation": {
+      "python": "3.11.16 (main, Aug 27 2026, 14:44:21) [GCC 14.3.0]",
+      "executable": "/home/zw/projects/remi-manip-test/tmp/egodex-env/bin/python",
+      "packages": {
+        "numpy": "1.26.0",
+        "scipy": "1.15.3",
+        "torch": "2.7.0+cu128",
+        "torchvision": "0.22.0+cu128",
+        "pin": "2.7.0",
+        "nlopt": "2.7.1",
+        "dex-retargeting": "0.4.6",
+        "trimesh": "4.5.1",
+        "imageio": "2.37.0",
+        "imageio-ffmpeg": "0.6.0",
+        "Pillow": "11.3.0",
+        "h5py": "3.16.0",
+        "protobuf": "6.33.6",
+        "einops": "0.8.2",
+        "hydra-core": "1.3.6",
+        "pytest": "9.1.1"
+      }
+    }
+  },
+  "upstream": {
+    "wilor": {
+      "path": "/home/zw/.cache/swam-retarget/WiLoR",
+      "commit": "fcb911312a38fa8badd30d9656a167485d61b8f9",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wilor_mini": {
+      "path": "/home/zw/.cache/swam-retarget/WiLoR-mini",
+      "commit": "ebec42f94c389070cdd7dda6fd1bf0b4a659c960",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "dex_retargeting": {
+      "path": "/home/zw/.cache/swam-retarget/dex-retargeting",
+      "commit": "3f56141bc8bd2760d5e452e382937269554ebb21",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "objectives": {
+      "path": "/home/zw/.cache/swam-retarget/objective-retargeting",
+      "commit": "3846d3fa207165bb0d498145aac8b885a28ea923",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cutie": {
+      "path": "/home/zw/.cache/swam-retarget/Cutie",
+      "commit": "ec5cdd4cf16f75c73ad785a2f96fb97dbad4125a",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sam2": {
+      "path": "/home/zw/projects/remi-manip-test/tmp/sam2",
+      "commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sharpa": {
+      "path": "/home/zw/projects/remi-manip-test/tmp/sharpa-assets",
+      "commit": "0d19cac602f46456b819e4b6a2c09a74982c9a3e",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "inputs": {
+    "use_chopsticks": {
+      "source": "/home/zw/projects/swam/results/retargeting_import_20261007/use_chopsticks/source",
+      "prepare": {
+        "source_member": "test/use_chopsticks/0",
+        "indices": [
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          46,
+          48,
+          50,
+          52,
+          54,
+          56,
+          58,
+          60,
+          62,
+          64,
+          66,
+          68,
+          70,
+          72,
+          74,
+          76,
+          78,
+          80,
+          82,
+          84
+        ],
+        "crop": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "size": [
+          512,
+          288
+        ],
+        "fps": 15.0,
+        "intrinsic": [
+          [
+            196.4357147216797,
+            0.0,
+            256.0
+          ],
+          [
+            0.0,
+            196.4357147216797,
+            144.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "physics": false
+      },
+      "sha256": {
+        "source.mp4": "2655696e919afe500b377e7b4bff55e8434b407caa36cb93f9e6bee7a404c605",
+        "source.hdf5": "93f6391812ef04037134684b2e05ed95d3c4b5f23acfe63b377204f016e13423",
+        "prepare.json": "a3fa1b1ed41a431c0e570176c85b7e8e606bfaef880f8e8971819cb64752e33c"
+      }
+    },
+    "screw_unscrew_bottle_cap": {
+      "source": "/home/zw/projects/swam/results/retargeting_import_20261007/screw_unscrew_bottle_cap/source",
+      "prepare": {
+        "source_member": "test/screw_unscrew_bottle_cap/0",
+        "indices": [
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          46,
+          48,
+          50,
+          52,
+          54,
+          56,
+          58,
+          60,
+          62,
+          64,
+          66,
+          68,
+          70,
+          72,
+          74,
+          76,
+          78,
+          80,
+          82,
+          84
+        ],
+        "crop": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "size": [
+          512,
+          288
+        ],
+        "fps": 15.0,
+        "intrinsic": [
+          [
+            196.4357147216797,
+            0.0,
+            256.0
+          ],
+          [
+            0.0,
+            196.4357147216797,
+            144.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "physics": false
+      },
+      "sha256": {
+        "source.mp4": "6c71ebea52e5ff24a09c67b9c68e58d496ff60f45fdb8434c38abc2e915c9eac",
+        "source.hdf5": "6cbcf2b1c62413b3a197bfc27e45d340ddba0dd147ca37cf6500e7f4606ac3ec",
+        "prepare.json": "0c9da2e757c09fcdf36404a05c4dbbc6af925a31aa87fb08b7cfdc98ff6fa7e1"
+      }
+    }
+  },
+  "weights": {
+    "/home/zw/projects/remi-manip-test/tmp/sam2/sam2.1_hiera_large.pt": {
+      "bytes": 898083611,
+      "sha256": "2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318"
+    },
+    "/home/zw/.cache/swam-retarget/cutie-base-mega.pth": {
+      "bytes": 140443788,
+      "sha256": "9c05402ee36d3a356fb72715d263ba7e1ea06ad3bada48c1306491792da43023"
+    },
+    "/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/detector.pt": {
+      "bytes": 53582271,
+      "sha256": "5ef3df44e42d2db52d4ffe91f83a22ce9925e2acc9abebf453f2c5d22e380033"
+    },
+    "/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/wilor_final.ckpt": {
+      "bytes": 2564989533,
+      "sha256": "3e97aafc7dd08d883a4cc5a027df61fdb6fda6136dbd1319405413862ada6bb2"
+    },
+    "/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/MANO_RIGHT.pkl": {
+      "bytes": 3821356,
+      "sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767"
+    },
+    "/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/wilor_vit.onnx": {
+      "bytes": 1262191217,
+      "sha256": "39ff254d6f11807bbf51d1ab936f4df50f2b19445ae5b06288f70af8123ab512"
+    },
+    "/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/mano_mean_params.npz": {
+      "bytes": 1178,
+      "sha256": "efc0ec58e4a5cef78f3abfb4e8f91623b8950be9eff8b8e0dbb0d036ebc63988"
+    }
+  },
+  "sharpa_assets": {
+    "assets/sharpa/LICENSE.txt": "f6a348fca3d77ddf60e66a3288b060e09b12afdebeabc6fc490b272ecfa10e43",
+    "assets/sharpa/NOTICE.txt": "bee17b99ba47b327197e75f2d62e3fadbff246f6e4b84e15550afe12fbd2f3d6",
+    "assets/sharpa/README.md": "b2e5ed080d513aa99263e1e82eb369a8450d781053a39a86f7c0706748ae59ab",
+    "assets/sharpa/wave_01/left_sharpa_wave/left_sharpa_wave.urdf": "4cf9fcf07a4545b538995c6c17aaf1a5768e61541b11b1cc385026da3626bad8",
+    "assets/sharpa/wave_01/left_sharpa_wave/left_sharpa_wave_with_flange.urdf": "6ea8d2c563c6d4ba56f5f4b04aa7d339f5b703ac8e5ec02404ca5f632d7c28a2",
+    "assets/sharpa/wave_01/left_sharpa_wave/left_sharpa_wave_with_wrist.urdf": "8bf9155894c0a71f0cde7462df6cf6fa4ff70ab8ff745ee372b7b2d339323fff",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_HB1_4F.STL": "b28a529aadb4a084912f3697b117ba43fd13c6f3136e48166b5dd1616d9f3eef",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_HB1_TH.STL": "df2dcfc770ecf81e893a65d28994ff608556156f4e9a0b447086ab6de485cd75",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_Visual_HB1_TH.STL": "16584576da037618d311cee65a7a459adeae36ae854d0c974c225ceb3c0f145a",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_elastomer.STL": "4d9ed21e6c4e1e94a43bce9b9ef210cc84bbbe461b4cf637529ec7007b9319bf",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_elastomer_HB1_4F.STL": "0781b19feca3209c74ff63d72188350ebc19624112be1259fdf007007c9795f5",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_elastomer_HB1_TH.STL": "62935bc489a5234d0e373bab1d52b09613ec50ab66a7be3f010e19988ee46090",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/DP_visual_HB1_4F.STL": "5123fd1776cfc82895f9f0b6ba4098522baaad9ebaaa3110ff1246775cfbd737",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/MCP_VL.STL": "587e34505de3b4f5b7131e6554e0ab92a18a3c28d250ea46eaf728c4539bf77d",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/elastomer.STL": "1611f42070a8fb34226508417bb930af53bbe9e3b619113136b60cb0595ca4ed",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/elastomer_HB1_4F.STL": "88b214c5c614b4b5f0c7cf195a90825b41e20745b1b65442854b371ff065e858",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/elastomer_HB1_TH.STL": "437f363ca7a40b6e9b9152ebb81db249c51de71565cdb44b7df6e2cdf0da3312",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/elastomer_surface.STL": "7f88a20e862895e3bf97d35c600b9eb5c2f2e49f8918ef9fe07bd82e6572fae8",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/flange_A.STL": "cdd3bd8e3668f24cea2f500f10519859bb2fe082ebb777ffa459df324bf05d3a",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/flange_B.STL": "c5051bf5e1ee87cdecc061326d4413b9e6232fe07777e5b3437f4a459a9280bc",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_DP.STL": "09ae5e485d42c651c70d025ef6bcd000f727dd1535836d7d8fa9de0686db4583",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_DP_visual.STL": "f21c6a8d12a21b29ff05127ec1987135cc966a283707165d93a30f9e74d4a0ed",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_MCP_VL_visual.STL": "0e8b15c4d8426a26cb222b8c1592f5e913c079aebdc0abaecda273b7d8ed0f3a",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_MP.STL": "1f0a96877af9ec35f20941ae696e9e22cedc6e341703657b0c6d0ebc982897a9",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_MP_visual.STL": "0e9ac7a8208ab2478cdff8ae40036b93e040a05f89ae0c43ece83a62fdf15293",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_PP.STL": "6e4434712a5c668dbeda169e727629e95d4a9492fca431126543109451e2484f",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_PP_visual.STL": "881e6eeeaecbf0a8bd6b11fa7f41a5aa139900635fe82b765586460c9a9c1580",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_hand_C_MC.STL": "01e17ed8392d99e76d1c00a849749610c3f7715f18ea12b107ba56eba3541fee",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_hand_C_MC_visual.STL": "41301682f7da6d9b9f16d2c9248169a8d257c3c816d4ae8df0258187d06fa54b",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_hand_C_MC_visual_.STL": "41301682f7da6d9b9f16d2c9248169a8d257c3c816d4ae8df0258187d06fa54b",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_pinky_MC.STL": "f7a7192ae246a6b88f9096332216013c8f6be507ee0dc9bfd4444518453b0c13",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_pinky_MC_visual.STL": "d49c63f5adeca6b1f6e329d7e541b09fdc48259d88aec3ff4c5ac371648cb881",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_CMC_VL.STL": "9c862ce10c4958ef967ed46fed837fafb20dd2c84a23ef9ee4f793576ef1fb93",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_DP.STL": "7bd0a9187d9cca7c3136d471784db39a3593b5264e16586002f73db42292dc6e",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_DP_visual.STL": "7bac46dd5699d6b2fed60fdb384199cdab7407343d61db3fc8737866096fa440",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_MC.STL": "3f15b81f22feec350ae2f60a7c69ca36028bd580d6cf4722d4f759d401ea02f9",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_MCP_VL_visual.STL": "47f990c04f09174666773687f9e4e1b4031dd150481c1d26719bbba874ae0709",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_MC_visual.STL": "da4fb47f6126ca3b653689aea6d958e08dde7d0c232a3043773e18f447aa121a",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_PP.STL": "2847673ad531a6d1fe3d12b3433d080358727def9acade9f0319c18579676b13",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/left_thumb_PP_visual.STL": "7f4a561b611af82e27bb5c8d6838d574e71e2ede42d25edf1f57c2b54ebde072",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/thumb_DP_elastomer.STL": "fb80bbef551c88dcb555a472acc32a9f57467d123fa8a2b3e8f21f1541e5d271",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/thumb_elastomer.STL": "8fb5b2036eda97fe4c2ce50ad8e021775185961c478c0d6f25f5a776588d9b14",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/thumb_elastomer_surface.STL": "1b25efc390f9db9eca87ed167e7baa2e3220a417bbd49924beb077da458c6241",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/wrist_A.STL": "5c4c9fc0dd538c4e11d64ae4994269090334f0f5fe25bbea022a501948d2e529",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/wrist_B.STL": "ce978dda8bbfb8ad59cb2f5decf647882d1be67fd758329d40c7c4cefacbf771",
+    "assets/sharpa/wave_01/left_sharpa_wave/meshes/wrist_collision.STL": "147da80c56a334d83b1ac882f3110b29401d5806c94b993e77e9d763bdca2b54",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_HB1_4F.STL": "b28a529aadb4a084912f3697b117ba43fd13c6f3136e48166b5dd1616d9f3eef",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_HB1_TH.STL": "df2dcfc770ecf81e893a65d28994ff608556156f4e9a0b447086ab6de485cd75",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_Visual_HB1_TH.STL": "db4e895306f51b7cc369b01b705d276b6d69c773033d7e01c8bafbf2d1ecd7e8",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_elastomer.STL": "4d9ed21e6c4e1e94a43bce9b9ef210cc84bbbe461b4cf637529ec7007b9319bf",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_elastomer_HB1_4F.STL": "0781b19feca3209c74ff63d72188350ebc19624112be1259fdf007007c9795f5",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_elastomer_HB1_TH.STL": "62935bc489a5234d0e373bab1d52b09613ec50ab66a7be3f010e19988ee46090",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/DP_visual_HB1_4F.STL": "5123fd1776cfc82895f9f0b6ba4098522baaad9ebaaa3110ff1246775cfbd737",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/MCP_VL.STL": "350f66d656fef760a7f4f0c4a026951e9d831ca65a9c5e4e34825b694ed6b11a",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/elastomer.STL": "1611f42070a8fb34226508417bb930af53bbe9e3b619113136b60cb0595ca4ed",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/elastomer_HB1_4F.STL": "88b214c5c614b4b5f0c7cf195a90825b41e20745b1b65442854b371ff065e858",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/elastomer_HB1_TH.STL": "437f363ca7a40b6e9b9152ebb81db249c51de71565cdb44b7df6e2cdf0da3312",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/elastomer_surface.STL": "7f88a20e862895e3bf97d35c600b9eb5c2f2e49f8918ef9fe07bd82e6572fae8",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/flange_A.STL": "cdd3bd8e3668f24cea2f500f10519859bb2fe082ebb777ffa459df324bf05d3a",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/flange_B.STL": "c5051bf5e1ee87cdecc061326d4413b9e6232fe07777e5b3437f4a459a9280bc",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_DP.STL": "09ae5e485d42c651c70d025ef6bcd000f727dd1535836d7d8fa9de0686db4583",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_DP_visual.STL": "f21c6a8d12a21b29ff05127ec1987135cc966a283707165d93a30f9e74d4a0ed",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_MCP_VL_visual.STL": "ec48548aaafa6589112e9b609ed58f1b5e7ec0157ca15e0e4e8c93bff706a9d0",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_MP.STL": "98ad7e6e990f61857d6ad28860bba7e0dcba78761a513d60fdc527e9d56bbe8e",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_MP_visual.STL": "af867d754ae0f3d5c38610f72cf4699789c82bb0391c2a406e6924f76e850ec6",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_PP.STL": "ed975b59e2569759ff28a397dab71d84667161d3b90b41d625bc5e1f5ac6536c",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_PP_visual.STL": "aa8b0ac6b6a7769033daa149416035712b23b79af0a7ddeb83d62142f8ff8a14",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_hand_C_MC.STL": "8c52941db271e9331f0b32ec581c078af7f8cb372fb97f021d5b1dec2d2426ae",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_hand_C_MC_visual.STL": "9234e513974246de38de76ce5f2a48078ebb014e890083219e2bd93caef55b60",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_hand_C_MC_visual_.STL": "9234e513974246de38de76ce5f2a48078ebb014e890083219e2bd93caef55b60",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_pinky_MC.STL": "1f8207aff0f2f6ca2f1de1a8bbbbcd4183300bc3778d55821c2aae9b490b7dd3",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_pinky_MC_visual.STL": "5ae38bab4f573bd147e5a5e231eb399e2396575884cd36e574235258a048e53b",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_CMC_VL_visual.STL": "ebaf499965a51e4b539b7ec5481efbddaf2003b69d0e5e72425a430cecd187b0",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_DP.STL": "7bd0a9187d9cca7c3136d471784db39a3593b5264e16586002f73db42292dc6e",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_DP_visual.STL": "7bac46dd5699d6b2fed60fdb384199cdab7407343d61db3fc8737866096fa440",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MC.STL": "deb6d97eb2d7223d72c23ebb32f874644dcf78848389f14dcabe3016aae5dd6c",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MCP_VL_visual.STL": "30d656738130093b7023100c73fac065a173aaba2e4314034c050c984005d634",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MC_visual.STL": "81f4bf8c39117b7bf7a4f0fdeb577948056139a84927adc55e9b049434a41a3b",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_PP.STL": "795b35f943c4272314d5e72497aaea2ef998458b0259a6609577d3694aeff869",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_PP_visual.STL": "1024905f9af3ad14160ce55d2e1d98fb7028274f7b267bee8b057754eb165faa",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/thumb_DP_elastomer.STL": "fb80bbef551c88dcb555a472acc32a9f57467d123fa8a2b3e8f21f1541e5d271",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/thumb_elastomer.STL": "8fb5b2036eda97fe4c2ce50ad8e021775185961c478c0d6f25f5a776588d9b14",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/thumb_elastomer_surface.STL": "1b25efc390f9db9eca87ed167e7baa2e3220a417bbd49924beb077da458c6241",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/wrist_A.STL": "5c4c9fc0dd538c4e11d64ae4994269090334f0f5fe25bbea022a501948d2e529",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/wrist_B.STL": "ce978dda8bbfb8ad59cb2f5decf647882d1be67fd758329d40c7c4cefacbf771",
+    "assets/sharpa/wave_01/right_sharpa_wave/meshes/wrist_collision.STL": "147da80c56a334d83b1ac882f3110b29401d5806c94b993e77e9d763bdca2b54",
+    "assets/sharpa/wave_01/right_sharpa_wave/right_sharpa_wave.urdf": "7a9ab7f824482d23765b2da40b7e96fc605e7e70eda4615a5ca51fea88afb845",
+    "assets/sharpa/wave_01/right_sharpa_wave/right_sharpa_wave_with_flange.urdf": "261c1a5284e04bc9690e0f5ac39d7a7cace0a16d335d663a1d3c7fcf4e4daf31",
+    "assets/sharpa/wave_01/right_sharpa_wave/right_sharpa_wave_with_wrist.urdf": "3b0f5834aba2afe4901be4bba23d4a748ccd6a6785ad1db5028ae80f5ae49f9d"
+  },
+  "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "gpu": "NVIDIA GeForce RTX 4090, 580.173.02, 24564 MiB"
+}

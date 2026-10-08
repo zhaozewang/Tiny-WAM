@@ -1,0 +1,67 @@
+{
+  "status": "Pilot complete; not accepted as production RGB replacement or physical robot demonstration",
+  "request": "Try established retargeting methods on the poor connected R1/Sharpa EgoDex result",
+  "entrypoint": "scripts/compare_egodex_retargeting.py",
+  "annotation_audit": "scripts/inspect_retarget_annotations.py",
+  "environment": "/home/zw/.cache/swam-retarget/compare-env/bin/python",
+  "upstream_repositories": {
+    "dex": "https://github.com/dexsuite/dex-retargeting",
+    "paper": "https://github.com/Mingrui-Yu/retargeting"
+  },
+  "versions": "Exact upstream revisions, adapter SHA256 and robot/method configurations are saved in each result directory",
+  "outputs": [
+    "results/retarget_papers_chopsticks_v2",
+    "results/retarget_papers_bottle_v2"
+  ],
+  "failed_or_smoke_outputs_preserved": [
+    "results/retarget_papers_chopsticks_smoke",
+    "results/retarget_papers_chopsticks_v1"
+  ],
+  "protocol": {
+    "clips": ["use_chopsticks", "screw_unscrew_bottle_cap"],
+    "frames_per_clip": 33,
+    "source_frame_indices": "20 through 84 inclusive, stride 2",
+    "fps": 15,
+    "duration_seconds": 2.2,
+    "individual_render_resolution": [1024, 576],
+    "new_robot_scale": [1.0, 1.0],
+    "wrist_ratio": 1.0,
+    "adapter_spacer_m": 0.012,
+    "robot_base": "Fixed for the clip from mean human shoulder landmarks; native robot shoulder width",
+    "wrist_calibration": "Per-frame rigid Kabsch fit to palm anchors, without scaling",
+    "methods": ["position", "vector", "dexpilot", "paper_full", "paper_actual_distance"],
+    "paper_actual_distance": "Author-provided ablation option 2; preserves original thumb-to-finger distances instead of shrinking them",
+    "adaptations": [
+      "Generated R1 plus Sharpa kinematic URDF matching existing renderer",
+      "Mapped human landmarks to Sharpa wrist, finger bases and tips",
+      "Published task-space objective weights and optimizer code unchanged",
+      "Robot-specific posture regularization weights set to zero; velocity weights 0.1 arm, 0.01 finger",
+      "Disabled low-pass output filtering for dex-retargeting",
+      "Strict limits through upstream epsilon=0 API; clip only next optimizer initial guess to avoid float32 roundoff outside float64 bounds"
+    ]
+  },
+  "verification": {
+    "adapter_and_compositing_tests": "8 passed",
+    "fk": "Both upstream Pinocchio and rendered FK agree below 1e-8 across random joint configurations",
+    "media": "ffprobe confirms 33 frames at 15 fps; inspected beginning/middle/end stills and enlarged right-hand comparisons",
+    "projection": "Camera inverse and perspective projection checked against official EgoDex data_utils.py and draw_utils.py"
+  },
+  "judgment": {
+    "kinematic_fit": "Paper objectives substantially improve fingertip direction and position agreement with EgoDex 3D annotations on these two clips",
+    "example_chopsticks_right": "Position baseline: 8.05 mm / 35.97 degrees. Paper actual-distance: 0.59 mm / 3.70 degrees. These are annotation-fit errors, NOT physical grasp or RGB ground-truth errors",
+    "temporal_caveat": "Bottle right-hand joint-step p95 is worse for paper actual-distance (0.203 rad) than position (0.146 rad); no universal smoothness improvement claimed",
+    "visual_failure": "Directly reprojecting original EgoDex hand points already misaligns multiple visible fingers in the RGB. A better optimizer faithfully reproduces that mismatch",
+    "official_caveat": "EgoDex README explicitly warns of perspective mismatch caused by Vision Pro multi-camera synthesized RGB. This does not prove the 3D labels themselves are incorrect",
+    "official_caveat_url": "https://github.com/apple/ml-egodex#code-structure-and-installation",
+    "archived_baseline": "Different arm/hand scale and wrist proportions; qualitative reference only, not an isolated algorithm ablation",
+    "not_solved": ["RGB-to-3D hand alignment", "object contact geometry", "object occlusion", "self/object collision", "removal of original human hands"]
+  },
+  "next_research": [
+    "Treat EgoDex 3D pose as a prior, not exact pixel-aligned truth",
+    "Evaluate independent RGB hand observations and camera/reprojection refinement without changing physical robot dimensions",
+    "Separate robot kinematic trajectory generation from pixel-aligned counterfactual video editing",
+    "Only add physical object-contact optimization once object geometry and motion are estimated",
+    "Do not scale to the full EgoDex dataset or declare grasp success based on annotation-fit metrics"
+  ],
+  "safety_and_scope": "No training restart, no existing outputs overwritten, no production pipeline replacement, no commit or push. All media remain local research artifacts. Review dataset derivative redistribution rights separately before any publication."
+}

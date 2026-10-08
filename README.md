@@ -27,3 +27,12 @@ These are kinematic animations with 48 moving joints (6 arm + 18 hand per side),
 - `assets/arm_pose.json`: accepted arm pose reference.
 
 Previous generated media are preserved in the original project. New renders belong in this project's `results/` directory.
+
+## RGB Hand Retargeting
+
+The separate [RGB retargeting research and reproduction guide](docs/retargeting/README.md)
+documents EgoDex diagnostics, published-method comparisons, WiLoR hand estimation,
+Sharpa replacement, object occlusion, silhouette refinement, and R1 arms fitted
+without moving the accepted hands. It includes exact local dependencies, commands,
+validation results and limitations. These are visual overlays, not physically
+validated robot demonstrations; private media and model weights remain outside Git.

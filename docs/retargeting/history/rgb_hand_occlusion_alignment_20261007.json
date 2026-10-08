@@ -1,0 +1,37 @@
+{
+  "latest_request": "Bottle first image is still poorly localized; do not mistake occlusion correction for accurate pose",
+  "status": "Partial visual improvement only. Original approved poses/renders preserved; no production replacement or publication.",
+  "occlusion": {
+    "outputs": "results/rgb_robot_occlusion_v1/{use_chopsticks,screw_unscrew_bottle_cap}",
+    "method": "Joint SAM2.1-large visible-instance labels for hands, bottle, cap, chopsticks. Native 1920x1080 input; 960x540 labels/composite.",
+    "prompts": ["notes/rgb_occlusion_bottle_prompts_v1.json", "notes/rgb_occlusion_chopsticks_prompts_v1.json"],
+    "pose_changed": false,
+    "validation": "All 33 frames of each clip: source/pose indices agree, only object-mask/robot intersection changes, frozen input SHA256 unchanged.",
+    "limitation": "Transfers source image visibility, not metric depth or true contact. Thin-object masks and differences between human/robot geometry remain imperfect. SAM compiled hole-filling extension unavailable; inference succeeded."
+  },
+  "diagnosis": {
+    "initial_frame": 0,
+    "original_source_frame": 20,
+    "native_rgb_all_joint_error_against_wilor_px": {"left": 15.276, "right": 14.453},
+    "native_rgb_tip_only_error_against_wilor_px": {"left": 1.760, "right": 3.299},
+    "meaning": "Small fingertip pseudo-target residual does not imply correct palm, wrist or human alignment. Robot base and human anatomical wrist are not identical landmarks. Hidden fingers are estimates, not observed ground truth."
+  },
+  "alignment": {
+    "script": "scripts/refine_rgb_hand_alignment.py",
+    "audit_script": "scripts/audit_rgb_hand_alignment.py",
+    "static_pilot": "results/rgb_robot_bottle_alignment_v1",
+    "independent_frame_pilot": "results/rgb_robot_bottle_alignment_v2",
+    "temporally_filtered_corrections": "results/rgb_robot_bottle_alignment_v3",
+    "method": "Custom native-size bounded coordinate-descent fitting of visible hand silhouette, weak WiLoR pixel anchors, object-excluded mask and wrist-side forearm exclusion. V3 Gaussian-filters ONLY added pose corrections (sigma 1 frame), accepts when per-frame composite objective improves.",
+    "camera": "Unchanged WiLoR virtual camera; not physical world coordinates",
+    "first_frame_visible_sam_mask_iou_before_after": {"left": [0.6637,0.7344], "right": [0.7352,0.8382]},
+    "mean_visible_sam_mask_iou_before_after": {"left": [0.7004,0.7697], "right": [0.7296,0.7731]},
+    "caution": "These IoUs use the same SAM masks optimized against, not independent validation. Two right-hand frames regress in IoU despite improved combined objective. Do not call this universally better or fully solved.",
+    "temporal": "V2 increased projected-joint acceleration; V3 reduced that increase but does not eliminate it. Left mean acceleration 5.90 -> 6.27 and right 14.36 -> 14.47 px/frame^2. This includes actual motion and is not isolated jitter.",
+    "visual": "Inspected all V2 frames as contact sheets, V3 start/middle/end. Palm outline improves modestly; residual human pixels, morphology differences and inaccurate grasp placement remain.",
+    "media": ["results/rgb_robot_bottle_alignment_v3/comparison_000.png", "results/rgb_robot_bottle_alignment_v3/comparison.mp4", "results/rgb_robot_bottle_alignment_v3/robot_hands.mp4"],
+    "duration": "33 frames at 15 fps, 2.2 seconds, unchanged source timing"
+  },
+  "tests": "9 passed in compare-env: occlusion invariants, joint mapping, virtual/native FK correspondence; no joint-limit violation in the new pilot. No physical contact or human-label accuracy test.",
+  "preservation": "No training jobs touched, no remote machines used, no server started, no commit or push. All own exec jobs completed."
+}
