@@ -42,7 +42,7 @@ class BenchmarkCase:
         self.count = count
         self.sample = sample
 
-        # Preserve the original camera and goal sampling sequence.
+        # Sample the camera and goals once for this recorded window.
         batch = {}
         for name, value in sample['latents'].items():
             batch[name] = value[None].cuda()

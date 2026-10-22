@@ -1,5 +1,5 @@
-# Approved continuation: full optimizer checkpoint at step 6000, global batch 36.
-# This uses the historical v5 dataset, not the corrected collection contract.
+# Resume step 6000 with optimizer state; global batch 36.
+# Dataset version: v5 (see docs/experiments.md).
 root = ".."
 
 [paths]

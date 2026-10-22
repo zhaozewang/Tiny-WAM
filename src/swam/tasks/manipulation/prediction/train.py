@@ -20,7 +20,7 @@ from swam.shards import atomic_json
 
 
 def learning_rate(step, base_lr, steps):
-    # Preserve the original 200-step warmup and global cosine schedule on resume.
+    # Warmup and cosine decay use the global optimizer step, including on resume.
     return base_lr * min(1., step / 200) * (
         .1 + .9 * .5 * (1 + math.cos(math.pi * max(0, step - 200) / max(1, steps - 200))))
 
@@ -44,7 +44,7 @@ def initialize_run(experiment, rank, world):
     if rank != 0 or settings.wandb_mode == 'disabled':
         return None
 
-    # Remote logging is optional and never assumes an account or an old run ID.
+    # Initialize logging on rank zero only.
     import wandb
     config = asdict(settings)
     config['global_batch'] = settings.batch * world * settings.accumulation
@@ -102,7 +102,7 @@ class Trainer:
         self.tokenizer_hashes = checkpoint.get('tokenizer_sha256')
 
     def microbatch(self, step, micro, task):
-        # Keep per-rank sampling and PyTorch random-number consumption unchanged.
+        # Each rank and accumulation step gets a distinct sampling seed.
         seed = sample_seed(step, self.rank, micro, self.world,
                            self.settings.accumulation, self.settings.seed)
         self.data.rng.seed(seed)
@@ -140,7 +140,7 @@ class Trainer:
             loss_sum += loss
             metadata.extend(samples)
 
-        # Apply the original clipping, schedule and optimizer order.
+        # Clip gradients and set the learning rate before the optimizer update.
         grad = torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.)
         if not torch.isfinite(grad):
             raise RuntimeError('Nonfinite gradient')

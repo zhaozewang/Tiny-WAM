@@ -71,7 +71,7 @@ class GrowingWindows:
         if not eligible:
             raise RuntimeError(f'No complete {split} windows')
 
-        # Preserve the choice/start RNG order and the historical validation episode.
+        # Sample an episode, then a start frame; fixed evaluation starts at frame zero.
         windows = []
         metadata = []
         for _ in range(n):

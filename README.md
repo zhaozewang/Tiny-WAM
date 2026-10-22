@@ -1,38 +1,69 @@
-# Tiny-WAM: R1 + ISyHand scene
+# Tiny-WAM
 
-Self-contained scene assets and preview code for the original Galaxea R1 arms and fixed base/torso, two ISyHands at 85% scale, a mirrored left hand, connected wrist adapters, and an ALOHA table. The two native wrist RealSense camera housings are removed. The three render cameras are head, close left, and close right.
+A small latent world/action model for robot reaching. It models camera images,
+joint state and actions at 24 Hz, conditioned on timed joint-position goals.
+The repository also includes R1 + ISyHand scene assets and an RGB hand-retargeting
+pipeline.
 
-## Run on remi
+## Setup
 
-Uses an Isaac Lab / Isaac Sim 5.1 environment selected through `SWAM_PYTHON` (defaults to `python3` in the active environment).
+Linux, Python 3.11 and CUDA 12.8. The inference benchmark uses one 24 GB RTX 4090.
 
 ```bash
-cd "${TINY_WAM_ROOT:?Set TINY_WAM_ROOT to your checkout}"
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --require-hashes -r requirements.lock
+python -m pip install --no-deps -e .
+```
+
+Place the model weights and reference data in `artifacts/`, then run:
+
+```bash
+tiny-wam reproduce --config configs/reproduce.toml
+```
+
+Weights and datasets are distributed separately; a download link is not yet
+available. See [reproduction](docs/reproduce.md) for the required files, training
+commands and benchmark protocol, and [experiment notes](docs/experiments.md)
+for dataset versions and training settings.
+
+## Scene preview
+
+The scene contains Galaxea R1 arms, a fixed base and torso, two ISyHands at 85%
+scale, wrist adapters and an ALOHA table. The left hand is mirrored. Rendered
+views are head, left and right; the native wrist-camera housings are removed.
+
+Preview requires a separate Isaac Lab / Isaac Sim 5.1 environment. Activate it
+or set `SWAM_PYTHON` to its interpreter:
+
+```bash
 ./run.sh --output results/stills --frames 1 --device cuda:0
 ./run.sh --output results/random_motion --random-preview --frames 150 --device cuda:0
 ```
 
-Use a new output directory for each run. Random preview produces `head.mp4`, `left.mp4`, `right.mp4` and `synchronized.mp4`, plus camera metadata and `trajectory.npz`. All streams are 15 fps; 150 frames is 10 seconds. The individual cameras render at 960x960. Seed 42; random arm targets within +/-0.15 rad of the reference pose and joint limits; hand targets within URDF limits; one target each second, cubic interpolation for display.
+Each run needs a new output directory. The random preview writes three 960×960
+videos at 15 fps, a synchronized video, camera metadata and `trajectory.npz`.
+It uses seed 42, arm targets within ±0.15 rad of the reference pose and joint
+limits, and hand targets within URDF limits. Targets change once per second,
+with cubic interpolation for display.
 
-## Scope
+The preview is a kinematic animation of 48 joints, not a physics rollout.
+Scaled and mirrored hand geometry retains transformed source inertia; dynamics
+and collision-free motion have not been calibrated.
 
-These are kinematic animations with 48 moving joints (6 arm + 18 hand per side), not physics-controlled rollouts or trained policies. Collision-free motion and dynamic actuator settings are not validated. Scaled hand geometry retains source mass/inertia; left-hand frames, axes, meshes and inertia orientation are reflected. No claim of physically calibrated dynamics.
+## Hand retargeting
+
+The [retargeting guide](docs/retargeting/README.md) covers EgoDex, WiLoR hand
+estimation, Sharpa replacement, object occlusion, silhouette refinement and
+R1 arm fitting. These outputs are visual overlays, not executable robot
+trajectories. Media and third-party model weights are kept outside Git.
 
 ## Assets
 
-- `assets/galaxea/R1`: official userguide-galaxea/URDF R1 model, source commit b81c32520b1d1a3b3299df0c038e042001b46ae3. Upstream root did not contain a LICENSE file in the source checkout.
-- `assets/isyhand`: supplied ISyHand v6 model; source-project license retained. The repository license is not a separate assertion of licensing for the supplied meshes.
-- `assets/menagerie/aloha`: MuJoCo Menagerie table and texture, source commit 4d038b3feae26ec82b46a4d586379114012a8ac7; licenses retained.
-- `assets/hand_replay`: prior hand joint trajectory for assembly preview only.
-- `assets/arm_pose.json`: accepted arm pose reference.
+- `assets/galaxea/R1`: Galaxea R1 URDF, source commit `b81c32520b1d1a3b3299df0c038e042001b46ae3`. The upstream checkout had no root license file.
+- `assets/isyhand`: supplied ISyHand v6 model, with its source license.
+- `assets/menagerie/aloha`: MuJoCo Menagerie table and texture, source commit `4d038b3feae26ec82b46a4d586379114012a8ac7`, with upstream licenses.
+- `assets/hand_replay`: joint trajectory used for assembly preview.
+- `assets/arm_pose.json`: reference arm pose.
 
-Previous generated media are preserved in the original project. New renders belong in this project's `results/` directory.
-
-## RGB Hand Retargeting
-
-The separate [RGB retargeting research and reproduction guide](docs/retargeting/README.md)
-documents EgoDex diagnostics, published-method comparisons, WiLoR hand estimation,
-Sharpa replacement, object occlusion, silhouette refinement, and R1 arms fitted
-without moving the accepted hands. It includes exact local dependencies, commands,
-validation results and limitations. These are visual overlays, not physically
-validated robot demonstrations; private media and model weights remain outside Git.
+Mesh and third-party asset licenses apply separately from the repository code.
