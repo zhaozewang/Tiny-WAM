@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-22",
+  "scope": "Portable inference reproduction and local migration checks; no training run",
+  "environment": {
+    "device": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.7.1+cu128",
+    "checkpoint_sha256": "dcd342627f234980a47b27270fdc4bf043988351616f9abc3476bd398408b07a",
+    "reference_sha256": "3f5efe5b3d70fd726f193ab1809c885e9c8107bb984e83f6d0be584e33f3439a",
+    "checkpoint_step": 50000
+  },
+  "benchmark": {
+    "cases": 96,
+    "timed_samples": 2400,
+    "complete": true,
+    "summary": [
+      {
+        "steps": 1,
+        "reference_ms": 50.08183751255274,
+        "reference_p95_ms": 54.04842235147953,
+        "cached_ms": 52.73065999150276,
+        "cached_p95_ms": 57.51369446516037,
+        "cuda_graph_ms": 19.575766921043396,
+        "cuda_graph_p95_ms": 20.22651396691799,
+        "optimized_hz": 51.08356694444642,
+        "speedup": 2.5583588992733755,
+        "max_action_deviation_rad": 0.001857370138168335
+      },
+      {
+        "steps": 2,
+        "reference_ms": 92.34397519379854,
+        "reference_p95_ms": 102.03039608895779,
+        "cached_ms": 75.1090082153678,
+        "cached_p95_ms": 81.95372894406319,
+        "cuda_graph_ms": 25.582808665931225,
+        "cuda_graph_p95_ms": 26.21750272810459,
+        "optimized_hz": 39.08874952153732,
+        "speedup": 3.609610516173447,
+        "max_action_deviation_rad": 0.0011195838451385498
+      },
+      {
+        "steps": 4,
+        "reference_ms": 177.3916269466281,
+        "reference_p95_ms": 193.3890487998724,
+        "cached_ms": 118.6600549519062,
+        "cached_p95_ms": 129.19125258922574,
+        "cuda_graph_ms": 37.46969785541296,
+        "cuda_graph_p95_ms": 38.216182217001915,
+        "optimized_hz": 26.688232284625634,
+        "speedup": 4.734268945299267,
+        "max_action_deviation_rad": 0.0011455118656158447
+      },
+      {
+        "steps": 8,
+        "reference_ms": 348.21927323937416,
+        "reference_p95_ms": 378.5367324948311,
+        "cached_ms": 210.96695970743895,
+        "cached_p95_ms": 228.55418995022774,
+        "cuda_graph_ms": 61.51289559900761,
+        "cuda_graph_p95_ms": 62.24643439054489,
+        "optimized_hz": 16.256753811734608,
+        "speedup": 5.660914997553651,
+        "max_action_deviation_rad": 0.0008613765239715576
+      }
+    ]
+  },
+  "checks": {
+    "clean_dependency_install": true,
+    "installed_dependency_check": true,
+    "working_directory_independence": true,
+    "cpu_tests": {
+      "passed": 19,
+      "skipped": 2
+    },
+    "gpu_tests": {
+      "passed": 17,
+      "skipped": 2
+    },
+    "training_preflight": "Passed with the full step-6000 optimizer checkpoint and 68-episode latent dataset",
+    "training_gradient_equivalence": "Exact equality of loss, parameter gradients and CPU/CUDA RNG state for full and lowdim microbatches",
+    "data_equivalence": "Exact outputs, metadata and RNG state against the original compute-node reader for 121/241-frame windows"
+  },
+  "limits": [
+    "Timing excludes sensing, simulation, graph capture and initial prefill.",
+    "Recorded-history latency is not closed-loop task success.",
+    "Full distributed training and raw-dataset preparation were not rerun.",
+    "Weights and datasets are external artifacts, not Git objects."
+  ]
+}
