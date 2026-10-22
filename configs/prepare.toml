@@ -1,0 +1,9 @@
+root = ".."
+
+[paths]
+raw_dataset = "data/raw/r1_random_10min_v5"
+latents = "data/flow_latents_v5"
+reference = "artifacts/eval_reference.pt"
+tokenizers = "artifacts/tokenizers"
+image_model = "artifacts/dcae"
+output = "results/prepare"

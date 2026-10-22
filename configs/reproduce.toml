@@ -1,0 +1,17 @@
+# Paths are relative to root, which is relative to this config file.
+root = ".."
+
+[paths]
+checkpoint = "artifacts/model.pt"
+reference = "artifacts/eval_reference.pt"
+tokenizers = "artifacts/tokenizers"
+image_model = "artifacts/dcae"
+output = "results/reproduce"
+manifest = "configs/artifacts.json"
+
+[benchmark]
+expected_step = 50000
+steps = [1, 2, 4, 8]
+history = [1, 24, 60, 119]
+repeats = 25
+warmup = 5

@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "checkpoint_step": 50000,
+  "dataset": "r1_random_10min_v5",
+  "description": "Frozen inputs for the measured inference comparison; no public artifact URL has been assigned.",
+  "files": [
+    {
+      "input": "checkpoint",
+      "bytes": 5355803819,
+      "sha256": "dcd342627f234980a47b27270fdc4bf043988351616f9abc3476bd398408b07a"
+    },
+    {
+      "input": "reference",
+      "bytes": 300303565,
+      "sha256": "3f5efe5b3d70fd726f193ab1809c885e9c8107bb984e83f6d0be584e33f3439a"
+    },
+    {
+      "input": "tokenizers",
+      "bytes": 6247185,
+      "sha256": "a5a0500ea80b0a158e003147f4cbee95dfba8ad264ab0c6396462191d797b446",
+      "file": "action.pt"
+    },
+    {
+      "input": "tokenizers",
+      "bytes": 7231402,
+      "sha256": "5d280afea6c8fe2bce7caf6ca9862622c1fa982ea346e4baed3323dc5758dd3d",
+      "file": "proprio.pt"
+    },
+    {
+      "input": "image_model",
+      "bytes": 1315,
+      "sha256": "b973ef3c0135b954f85aa9aff99d06fc755f92498f9ecf63306138abbcade3e9",
+      "file": "config.json"
+    },
+    {
+      "input": "image_model",
+      "bytes": 1293517488,
+      "sha256": "3be7b7ba10561ece8d773de370539bb101181d6622d2b2d16c286a734b6d9673",
+      "file": "diffusion_pytorch_model.safetensors"
+    }
+  ]
+}

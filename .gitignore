@@ -4,3 +4,16 @@ __pycache__/
 
 .vscode/
 *.log
+/notes/
+
+# Local artifacts, environments, builds and checks.
+/data/
+/artifacts/
+/external/
+/.venv/
+/dist/
+/build/
+*.egg-info/
+/tests/
+/.pytest_cache/
+/uv.lock

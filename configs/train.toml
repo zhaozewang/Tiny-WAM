@@ -1,0 +1,23 @@
+# Approved continuation: full optimizer checkpoint at step 6000, global batch 36.
+# This uses the historical v5 dataset, not the corrected collection contract.
+root = ".."
+
+[paths]
+checkpoint = "artifacts/training/step_006000.pt"
+latents = "data/flow_latents_v5"
+output = "results/train"
+training_manifest = "configs/training-data.json"
+
+[train]
+expected_step = 6000
+steps = 50000
+workers = 4
+batch = 3
+accumulation = 3
+base_lr = 0.00005
+checkpoint_every = 200
+frames = 121
+seed = 42
+optimizer = "adamw8bit"
+wandb_mode = "disabled"
+wandb_project = "swam"
