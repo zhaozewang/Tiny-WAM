@@ -14,7 +14,7 @@ The final arm stage leaves the accepted hands unchanged.
 
 ## Current Results
 
-All paths below are relative to `/home/zw/projects/swam`. Generated results are
+All paths below are relative to `${TINY_WAM_ROOT}`. Generated results are
 private local files under `results/`, not included in this commit.
 
 | Result | Directory | Status |
@@ -92,7 +92,7 @@ generation/inpainting model. The photographed environment is the original RGB.
 Sources on Remi:
 
 ```text
-/home/zw/projects/swam/results/retargeting_import_20261007/
+${TINY_WAM_ROOT}/results/retargeting_import_20261007/
   use_chopsticks/source/
   screw_unscrew_bottle_cap/source/
 ```
@@ -288,8 +288,8 @@ This is the shortest path to repeat the final arm fitting without rerunning hand
 estimation. Use a new output directory; do not delete or overwrite prior results.
 
 ```bash
-cd /home/zw/projects/swam
-COMPARE=/home/zw/.cache/swam-retarget/compare-env/bin/python
+cd "${TINY_WAM_ROOT:?Set TINY_WAM_ROOT to your checkout}"
+COMPARE=${SWAM_RETARGET_ROOT}/compare-env/bin/python
 export PYOPENGL_PLATFORM=egl
 "$COMPARE" scripts/fit_arms_to_frozen_hands.py \
   --output results/rgb_robot_bottle_arms_repro_01
@@ -308,12 +308,12 @@ Use the existing separate environments; do not pip-install over production
 Isaac/learning environments:
 
 ```bash
-CACHE=/home/zw/.cache/swam-retarget
+CACHE=${SWAM_RETARGET_ROOT}
 COMPARE="$CACHE/compare-env/bin/python"
 RGB="$CACHE/rgb-env/bin/python"
-SAM=/home/zw/projects/remi-manip-test/tmp/egodex-env/bin/python
-SAMROOT=/home/zw/projects/remi-manip-test/tmp/sam2
-VIDEO_DEPS=/home/zw/projects/remi-manip-test/tmp/video-deps
+SAM=${SWAM_SAM_ENV_ROOT}/bin/python
+SAMROOT=${SWAM_SAM_ROOT}
+VIDEO_DEPS=${SWAM_VIDEO_DEPS_ROOT}
 export PYOPENGL_PLATFORM=egl
 export PYTHONPATH="$PWD/src:$CACHE/objective-retargeting/src${PYTHONPATH:+:$PYTHONPATH}"
 ```
@@ -334,10 +334,10 @@ or automatic model download workflow is not promised.
 Required local model locations:
 
 ```text
-/home/zw/.cache/swam-retarget/wilor-weights/pretrained_models/
-/home/zw/projects/remi-manip-test/tmp/sam2/sam2.1_hiera_large.pt
-/home/zw/.cache/swam-retarget/objective-retargeting/
-/home/zw/.cache/swam-retarget/dex-retargeting/
+${SWAM_RETARGET_ROOT}/wilor-weights/pretrained_models/
+${SWAM_SAM_ROOT}/sam2.1_hiera_large.pt
+${SWAM_RETARGET_ROOT}/objective-retargeting/
+${SWAM_RETARGET_ROOT}/dex-retargeting/
 ```
 
 `ffmpeg`, `ffprobe`, NVIDIA/EGL libraries and DejaVu Sans are also used. Trusted
@@ -351,8 +351,8 @@ local checkout is the simplest way to rerun every stage without overwriting the
 accepted artifacts. Run this **after the documentation/code commit exists**:
 
 ```bash
-ORIGINAL=/home/zw/projects/swam
-REPRO=/home/zw/projects/swam-retarget-repro-01
+ORIGINAL=${TINY_WAM_ROOT}
+REPRO=${TINY_WAM_REPRO_ROOT}
 test ! -e "$REPRO" || { printf 'Choose a new reproduction directory\n'; exit 1; }
 git clone --no-hardlinks "$ORIGINAL" "$REPRO"
 cd "$REPRO"
@@ -427,12 +427,13 @@ env PYTHONPATH="$VIDEO_DEPS${PYTHONPATH:+:$PYTHONPATH}" "$SAM" \
 ```bash
 env PYTHONPATH="$PWD/src:$VIDEO_DEPS${PYTHONPATH:+:$PYTHONPATH}" "$SAM" - <<'PY'
 from pathlib import Path
+import os
 from swam.retargeting.segmentation import track
 track(
     Path('results/retargeting_import_20261007/screw_unscrew_bottle_cap/source'),
     Path('results/rgb_bottle_sleeves_v1'),
     Path('docs/retargeting/configs/rgb_bottle_sleeves_prompts_v1.json'),
-    sam_root='/home/zw/projects/remi-manip-test/tmp/sam2',
+    sam_root=os.environ['SWAM_SAM_ROOT'],
     native=True, output_size=(960, 540),
 )
 PY

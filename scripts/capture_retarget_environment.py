@@ -1,4 +1,5 @@
 """Record local reproduction dependencies without copying private media or weights."""
+from swam.paths import external_path
 import argparse
 import hashlib
 import json
@@ -6,8 +7,7 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-CACHE = Path.home()/'.cache/swam-retarget'
-LEGACY = ROOT.parent/'remi-manip-test/tmp'
+CACHE = Path(external_path('retarget'))
 PACKAGES = ['numpy','scipy','torch','torchvision','pin','pinocchio','nlopt','dex-retargeting',
             'retargeting','pyrender','trimesh','imageio','imageio-ffmpeg','Pillow','h5py',
             'PyOpenGL','opencv-python','opencv-contrib-python','mediapipe','protobuf',
@@ -28,7 +28,7 @@ def capture(output):
     if output.exists():
         raise FileExistsError('Keep earlier environment snapshots; use a new output path')
     environments = dict(compare=CACHE/'compare-env/bin/python',rgb=CACHE/'rgb-env/bin/python',
-                        segmentation=LEGACY/'egodex-env/bin/python')
+                        segmentation=Path(external_path('sam_env', 'bin/python')))
     probe = '''import importlib.metadata as m,json,sys
 names=json.loads(sys.argv[1]); packages={}
 for name in names:
@@ -42,14 +42,14 @@ print(json.dumps(dict(python=sys.version,executable=sys.executable,packages=pack
         report['environments'][name] = json.loads(command([python,'-c',probe,json.dumps(PACKAGES)]))
     for name,path in dict(wilor=CACHE/'WiLoR',wilor_mini=CACHE/'WiLoR-mini',
                           dex_retargeting=CACHE/'dex-retargeting',objectives=CACHE/'objective-retargeting',
-                          cutie=CACHE/'Cutie',sam2=LEGACY/'sam2',sharpa=LEGACY/'sharpa-assets').items():
+                          cutie=CACHE/'Cutie',sam2=Path(external_path('sam')),sharpa=Path(external_path('sharpa'))).items():
         report['upstream'][name] = dict(path=str(path),commit=command(['git','-C',path,'rev-parse','HEAD']),
                                        tracked_diff_sha256=hashlib.sha256(command(['git','-C',path,'diff','HEAD']).encode()).hexdigest())
     for clip in ['use_chopsticks','screw_unscrew_bottle_cap']:
         source = ROOT/'results/retargeting_import_20261007'/clip/'source'
         report['inputs'][clip] = dict(source=str(source),prepare=json.loads((source/'prepare.json').read_text()),
                                       sha256={name:digest(source/name) for name in ['source.mp4','source.hdf5','prepare.json']})
-    checkpoints = [LEGACY/'sam2/sam2.1_hiera_large.pt',CACHE/'cutie-base-mega.pth']
+    checkpoints = [Path(external_path('sam', 'sam2.1_hiera_large.pt')),CACHE/'cutie-base-mega.pth']
     checkpoints += [p for p in (CACHE/'wilor-weights').rglob('*') if p.is_file() and p.suffix in
                     ('.pt','.pth','.ckpt','.pkl','.npz','.onnx','.yaml','.yml')]
     for p in checkpoints:

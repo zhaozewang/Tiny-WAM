@@ -1,4 +1,5 @@
 """Independent RGB-only hand estimation, before robot retargeting or smoothing."""
+from swam.paths import external_path
 import argparse
 import hashlib
 import inspect
@@ -10,9 +11,9 @@ import time
 
 # The published trusted WiLoR/YOLO checkpoints predate torch's weights-only default.
 os.environ.setdefault('TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD', '1')
-os.environ.setdefault('YOLO_CONFIG_DIR', str(Path.home()/'.cache/swam-retarget/yolo-config'))
+os.environ.setdefault('YOLO_CONFIG_DIR', str(Path(external_path('retarget', 'yolo-config'))))
 os.environ.setdefault('YOLO_AUTOINSTALL', 'false')
-os.environ.setdefault('MPLCONFIGDIR', str(Path.home()/'.cache/swam-retarget/matplotlib'))
+os.environ.setdefault('MPLCONFIGDIR', str(Path(external_path('retarget', 'matplotlib'))))
 import cv2
 import h5py
 import imageio.v2 as imageio
@@ -131,10 +132,10 @@ def run_clip(pipeline, mp, clip, output, limit):
                      'Monocular absolute depth and scale remain ambiguous', 'No temporal identity tracking or smoothing',
                      'Visible alignment must be checked against RGB, not EgoDex pseudo-ground-truth'],
         code_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        weights=str(Path.home()/'.cache/swam-retarget/wilor-weights'),
+        weights=str(Path(external_path('retarget', 'wilor-weights'))),
         license_scope='Local research only; WiLoR, MANO, Ultralytics and EgoDex have separate licenses; no redistribution')
     for name in ['WiLoR', 'WiLoR-mini']:
-        summary[name+'_commit'] = subprocess.check_output(['git', '-C', str(Path.home()/'.cache/swam-retarget'/name),
+        summary[name+'_commit'] = subprocess.check_output(['git', '-C', str(Path(external_path('retarget'))/name),
                                                          'rev-parse', 'HEAD'], text=True).strip()
     (output/'summary.json').write_text(json.dumps(summary, indent=2))
     labels = ['EgoDex projection', 'WiLoR: RGB only', 'MediaPipe: RGB only']
@@ -184,7 +185,7 @@ def main():
     from wilor_mini.pipelines.wilor_hand_pose3d_estimation_pipeline import WiLorHandPose3dEstimationPipeline
     torch.set_num_threads(4)
     pipeline = WiLorHandPose3dEstimationPipeline(device=torch.device('cuda'), dtype=torch.float32, verbose=False,
-        wilor_pretrained_dir=str(Path.home()/'.cache/swam-retarget/wilor-weights'))
+        wilor_pretrained_dir=str(Path(external_path('retarget', 'wilor-weights'))))
     pipeline.hand_detector.overrides.update(max_det=2, agnostic_nms=True, iou=.45)
     for clip in args.clips:
         run_clip(pipeline, mp, clip, args.output/clip, args.frames)

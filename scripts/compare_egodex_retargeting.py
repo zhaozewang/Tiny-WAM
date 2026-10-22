@@ -1,4 +1,5 @@
 """Run unmodified upstream retargeters on a fixed-size R1 + Sharpa pilot."""
+from swam.paths import external_path
 import argparse
 import copy
 import hashlib
@@ -285,7 +286,7 @@ def main():
                      'Unweighted human-keypoint metrics are not ground-truth grasp success; annotation confidence retained separately'],
         diagnostics=diagnostics, metrics={}, versions={})
     for name in ('dex-retargeting', 'objective-retargeting'):
-        report['versions'][name] = subprocess.check_output(['git', '-C', str(Path.home()/'.cache/swam-retarget'/name), 'rev-parse', 'HEAD'], text=True).strip()
+        report['versions'][name] = subprocess.check_output(['git', '-C', str(Path(external_path('retarget'))/name), 'rev-parse', 'HEAD'], text=True).strip()
     report['script_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     np.savez_compressed(args.output/'targets.npz', **{f'{s}_{k}': np.asarray(v) for s, d in targets.items() for k, v in d.items()})
     predictions = {}

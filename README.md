@@ -1,13 +1,13 @@
-# SWAM: R1 + ISyHand scene
+# Tiny-WAM: R1 + ISyHand scene
 
 Self-contained scene assets and preview code for the original Galaxea R1 arms and fixed base/torso, two ISyHands at 85% scale, a mirrored left hand, connected wrist adapters, and an ALOHA table. The two native wrist RealSense camera housings are removed. The three render cameras are head, close left, and close right.
 
 ## Run on remi
 
-Uses the existing adjacent `../dexverse-stack/env` Isaac Lab / Isaac Sim 5.1 environment. Override `SWAM_PYTHON` to use another compatible interpreter. Code and assets do not depend on the remi-manip-test project.
+Uses an Isaac Lab / Isaac Sim 5.1 environment selected through `SWAM_PYTHON` (defaults to `python3` in the active environment).
 
 ```bash
-cd /home/zw/projects/swam
+cd "${TINY_WAM_ROOT:?Set TINY_WAM_ROOT to your checkout}"
 ./run.sh --output results/stills --frames 1 --device cuda:0
 ./run.sh --output results/random_motion --random-preview --frames 150 --device cuda:0
 ```

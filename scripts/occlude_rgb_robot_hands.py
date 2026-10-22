@@ -1,4 +1,5 @@
 """Transfer observed object visibility to the frozen, approved RGB robot render."""
+from swam.paths import external_path
 import argparse
 import hashlib
 import json
@@ -54,7 +55,7 @@ def run(args):
     else:
         segmentation = output/'segmentation'
         track(source, segmentation, args.prompts, native=True,
-              sam_root='/home/zw/projects/remi-manip-test/tmp/sam2', output_size=(width, height))
+              sam_root=external_path('sam', ''), output_size=(width, height))
     metadata = json.loads((segmentation/'segmentation.json').read_text())
     if metadata['source_indices'] != config['indices']:
         raise ValueError('Object segmentation is not aligned with RGB poses')
