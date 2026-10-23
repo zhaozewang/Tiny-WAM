@@ -1,0 +1,43 @@
+{
+  "size": [
+    512,
+    288
+  ],
+  "annotation_source": "Manually prompted from randomly selected source frames; not an automatic segmentation benchmark",
+  "objects": [
+    {
+      "id": 2,
+      "role": "hand",
+      "name": "right_forearm",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              445,
+              243
+            ],
+            [
+              414,
+              217
+            ],
+            [
+              367,
+              168
+            ],
+            [
+              465,
+              196
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

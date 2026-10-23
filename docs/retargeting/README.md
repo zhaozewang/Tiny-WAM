@@ -12,6 +12,10 @@ wrist-anchored R1 arms for the bottle clip. These are counterfactual video
 overlays, not reconstructed physical scenes or executable robot demonstrations.
 The final arm stage leaves the accepted hands unchanged.
 
+Later experiment: [random four-clip batch and reproduction](random-pilot-20261007.md).
+All four produce outputs, but visual review found detection and arm/mesh failures;
+this is not approval to scale the pipeline as automatically accepted data.
+
 ## Current Results
 
 All paths below are relative to `${TINY_WAM_ROOT}`. Generated results are

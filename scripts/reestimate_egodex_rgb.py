@@ -74,8 +74,8 @@ def serializable(value):
     return value
 
 
-def run_clip(pipeline, mp, clip, output, limit):
-    source = ROOT/'results/retargeting_import_20261007'/clip/'source'
+def run_clip(pipeline, mp, clip, output, limit, source=None):
+    source = source or ROOT/'results/retargeting_import_20261007'/clip/'source'
     config = json.loads((source/'prepare.json').read_text())
     indices = config['indices'][:limit]
     output.mkdir(parents=True, exist_ok=False)
@@ -179,6 +179,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--clips', nargs='+', default=['use_chopsticks', 'screw_unscrew_bottle_cap'])
     parser.add_argument('--frames', type=int, default=33)
+    parser.add_argument('--source-root', type=Path)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     import mediapipe as mp
@@ -188,7 +189,8 @@ def main():
         wilor_pretrained_dir=str(Path(external_path('retarget', 'wilor-weights'))))
     pipeline.hand_detector.overrides.update(max_det=2, agnostic_nms=True, iou=.45)
     for clip in args.clips:
-        run_clip(pipeline, mp, clip, args.output/clip, args.frames)
+        source = args.source_root/clip/'source' if args.source_root else None
+        run_clip(pipeline, mp, clip, args.output/clip, args.frames, source)
 
 
 if __name__ == '__main__':

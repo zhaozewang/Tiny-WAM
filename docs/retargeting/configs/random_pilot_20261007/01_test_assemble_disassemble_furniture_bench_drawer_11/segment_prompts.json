@@ -1,0 +1,189 @@
+{
+  "size": [
+    512,
+    288
+  ],
+  "annotation_source": "Manually prompted from randomly selected source frames; not an automatic segmentation benchmark",
+  "objects": [
+    {
+      "id": 1,
+      "role": "object",
+      "name": "cabinet",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              318,
+              174
+            ],
+            [
+              300,
+              201
+            ],
+            [
+              324,
+              215
+            ],
+            [
+              242,
+              217
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 27,
+          "points": [
+            [
+              341,
+              182
+            ],
+            [
+              279,
+              225
+            ],
+            [
+              328,
+              234
+            ]
+          ],
+          "labels": [
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "object",
+      "name": "drawer",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              324,
+              212
+            ],
+            [
+              301,
+              188
+            ],
+            [
+              322,
+              174
+            ]
+          ],
+          "labels": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 27,
+          "points": [
+            [
+              280,
+              224
+            ],
+            [
+              285,
+              210
+            ],
+            [
+              334,
+              182
+            ],
+            [
+              325,
+              238
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "role": "hand",
+      "name": "left",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              239,
+              213
+            ],
+            [
+              254,
+              199
+            ],
+            [
+              205,
+              245
+            ],
+            [
+              319,
+              192
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "role": "hand",
+      "name": "right",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              410,
+              265
+            ],
+            [
+              389,
+              232
+            ],
+            [
+              461,
+              279
+            ],
+            [
+              324,
+              212
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

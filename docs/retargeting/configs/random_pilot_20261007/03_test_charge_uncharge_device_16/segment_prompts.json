@@ -1,0 +1,145 @@
+{
+  "size": [
+    512,
+    288
+  ],
+  "annotation_source": "Manually prompted from randomly selected source frames; not an automatic segmentation benchmark",
+  "objects": [
+    {
+      "id": 1,
+      "role": "object",
+      "name": "phone",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              243,
+              274
+            ],
+            [
+              258,
+              263
+            ],
+            [
+              203,
+              242
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "object",
+      "name": "cable",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              273,
+              203
+            ],
+            [
+              303,
+              213
+            ],
+            [
+              286,
+              244
+            ],
+            [
+              284,
+              217
+            ],
+            [
+              328,
+              247
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "role": "hand",
+      "name": "left",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              185,
+              256
+            ],
+            [
+              215,
+              236
+            ],
+            [
+              137,
+              285
+            ],
+            [
+              242,
+              273
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "role": "hand",
+      "name": "right",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              409,
+              239
+            ],
+            [
+              386,
+              208
+            ],
+            [
+              457,
+              283
+            ],
+            [
+              312,
+              215
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

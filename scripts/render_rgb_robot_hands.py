@@ -110,25 +110,40 @@ def refine_pixels(robot, adaptor, model, initial, target_uv, target_xyz, k, prev
         tip_max_px=float(error[TIPS].max()), iterations=int(result.nit), success=bool(result.success), message=str(result.message))
 
 
-def run(clip, predictions_root, output, legacy_reference=True):
+def detection_status(record, side):
+    detected = [p for p in record['wilor'] if int(p['is_right']) == int(side=='right')]
+    return detected, 'detected' if len(detected)==1 else ('missing' if not detected else 'ambiguous')
+
+
+def run(clip, predictions_root, output, legacy_reference=True, allow_missing=False):
     output.mkdir(parents=True, exist_ok=False)
     records = json.loads((predictions_root/clip/'predictions.json').read_text())
     summary = json.loads((predictions_root/clip/'summary.json').read_text())
     width,height = summary['input_resolution']
-    f = records[0]['wilor'][0]['wilor_preds']['scaled_focal_length']
+    detections = [p for r in records for p in r['wilor']]
+    if not detections:
+        raise ValueError('No RGB hand detections in selected clip')
+    f = detections[0]['wilor_preds']['scaled_focal_length']
     k = np.array([[f,0,width/2],[0,f,height/2],[0,0,1.]])
     scene = pyrender.Scene(bg_color=[0,0,0,0], ambient_light=[.65]*3)
     hands = {s: SharpaHand(s,scene) for s in ('left','right')}
     models, robots, adaptors, solvers, previous = {}, {}, {}, {}, {}
     per_side = {s: [] for s in hands}
     qpos = {s: [] for s in hands}
+    valid = {s: [] for s in hands}
     pose_frames = []
     for i, record in enumerate(records):
         frame_poses = {}
         for s,hand in hands.items():
-            detected = [p for p in record['wilor'] if int(p['is_right']) == int(s=='right')]
+            detected,status = detection_status(record,s)
+            valid[s].append(status=='detected')
             if len(detected) != 1:
-                raise ValueError(f'Frame {i} {s}: expected exactly one RGB detection')
+                if not allow_missing:
+                    raise ValueError(f'Frame {i} {s}: expected exactly one RGB detection; {status}')
+                qpos[s].append(np.full(6+len(hand.names),np.nan))
+                per_side[s].append(dict(detection_status=status,fit_performed=False))
+                previous[s] = None
+                continue
             prediction = detected[0]['wilor_preds']
             if not np.isclose(prediction['scaled_focal_length'], f):
                 raise ValueError('Inconsistent virtual intrinsics')
@@ -161,6 +176,7 @@ def run(clip, predictions_root, output, legacy_reference=True):
             initial = solver.solve(observation, previous_qpos=prior).qpos.astype(float)
             q, stats = refine_pixels(robot, adaptor, model, initial, uv, xyz, k, previous[s])
             stats['seconds'] = time.perf_counter()-start
+            stats.update(detection_status=status,fit_performed=True)
             stats['limit_excess_rad_or_m'] = float(max(0.,(model.lower-q).max(),(q-model.upper).max()))
             previous[s] = q
             solver.reset(q)
@@ -169,9 +185,10 @@ def run(clip, predictions_root, output, legacy_reference=True):
             frame_poses.update({name: robot.get_frame_pose(name).copy() for name in hand.nodes})
         pose_frames.append(frame_poses)
         if i%8 == 0:
-            print(clip,i+1,'/',len(records),{s:round(per_side[s][-1]['tip_mean_px'],2) for s in hands},flush=True)
+            print(clip,i+1,'/',len(records),{s:per_side[s][-1].get('tip_mean_px',per_side[s][-1]['detection_status']) for s in hands},flush=True)
     np.savez_compressed(output/'qpos.npz', **{s:np.array(q) for s,q in qpos.items()}, intrinsic=k,
-                        source_indices=[r['source_frame'] for r in records])
+                        source_indices=[r['source_frame'] for r in records],
+                        **{s+'_valid':v for s,v in valid.items()})
     scene.add(pyrender.IntrinsicsCamera(f/2,f/2,width/4,height/4,znear=.01,zfar=100.), pose=np.diag([1.,-1.,-1.,1.]))
     scene.add(pyrender.DirectionalLight(color=np.ones(3),intensity=2),pose=np.diag([1.,-1.,-1.,1.]))
     renderer = pyrender.OffscreenRenderer(width//2,height//2)
@@ -181,9 +198,12 @@ def run(clip, predictions_root, output, legacy_reference=True):
     font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',19)
     rgb_frames, masks = [], []
     boxes = np.array([p['hand_bbox'] for r in records for p in r['wilor'] if p['is_right']==1])
-    lo = np.maximum(boxes[:,:2].min(0)-30,[0,0])/2
-    hi = np.minimum(boxes[:,2:].max(0)+30,[width,height])/2
-    crop = tuple(np.r_[lo,hi].astype(int))
+    if len(boxes):
+        lo = np.maximum(boxes[:,:2].min(0)-30,[0,0])/2
+        hi = np.minimum(boxes[:,2:].max(0)+30,[width,height])/2
+        crop = tuple(np.r_[lo,hi].astype(int))
+    else:
+        crop = (0,0,width//2,height//2)
     with imageio.get_writer(output/'robot_hands.mp4',fps=summary['fps'],macro_block_size=1,quality=8) as writer, \
          imageio.get_writer(output/'comparison.mp4',fps=summary['fps'],macro_block_size=1,quality=8) as comparison, \
          imageio.get_writer(output/'right_hand_detail.mp4',fps=summary['fps'],macro_block_size=1,quality=8) as detail:
@@ -191,7 +211,9 @@ def run(clip, predictions_root, output, legacy_reference=True):
             frame = np.asarray(Image.fromarray(reader.get_data(record['source_frame'])).resize((width//2,height//2),Image.Resampling.LANCZOS))
             for s,hand in hands.items():
                 for name,node in hand.nodes.items():
-                    scene.set_pose(node,poses[name])
+                    node.mesh.is_visible = name in poses
+                    if name in poses:
+                        scene.set_pose(node,poses[name])
             rgb,depth = renderer.render(scene)
             mask = depth>0
             overlay = np.where(mask[...,None],rgb,frame)
@@ -223,7 +245,10 @@ def run(clip, predictions_root, output, legacy_reference=True):
         fps=summary['fps'],hand_scale=1.,method='Official paper ablation 2 initialization + custom RGB pixel/direction refinement',
         virtual_intrinsic=k.tolist(), floating_wrists=True, physical_arms=False, old_baseline_has_arms=legacy_reference,
         object_occlusion=False,human_inpainting=False,pose_metrics=per_side,
-        mean_tip_error_native_rgb_px={s:float(np.mean([r['tip_mean_px'] for r in rows])) for s,rows in per_side.items()},
+        mean_tip_error_native_rgb_px={s:float(np.mean([r['tip_mean_px'] for r in rows if r['fit_performed']]))
+                                     if any(r['fit_performed'] for r in rows) else None for s,rows in per_side.items()},
+        missing_hand_policy='Hide missing/ambiguous detections; save invalid rows as NaN, never interpolate' if allow_missing else 'Require both hands',
+        valid_hand_frames={s:int(np.sum(v)) for s,v in valid.items()},
         caveats=['Pixel errors are against WiLoR predictions, not human ground truth',
                  'Virtual-camera depth is not physical scene depth; do not execute these wrist translations on hardware',
                  'Original human pixels remain outside robot coverage; no object-contact or collision validation'],
@@ -239,11 +264,14 @@ def main():
     parser.add_argument('--clips',nargs='+',default=['use_chopsticks','screw_unscrew_bottle_cap'])
     parser.add_argument('--no-legacy-reference',action='store_true',
                         help='Skip archived comparison-only videos; does not change the hand solver or render')
+    parser.add_argument('--allow-missing-hands',action='store_true',
+                        help='Explicit partial-coverage output: hide absent/ambiguous hands, record invalid rows')
     args = parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=False)
     torch.set_num_threads(1)
     for clip in args.clips:
-        run(clip,args.predictions,args.output/clip,legacy_reference=not args.no_legacy_reference)
+        run(clip,args.predictions,args.output/clip,legacy_reference=not args.no_legacy_reference,
+            allow_missing=args.allow_missing_hands)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,67 @@
+{
+  "size": [
+    512,
+    288
+  ],
+  "annotation_source": "Manually prompted from randomly selected source frames; not an automatic segmentation benchmark",
+  "objects": [
+    {
+      "id": 1,
+      "role": "hand",
+      "name": "left_sleeve",
+      "annotations": [
+        {
+          "frame": 0,
+          "points": [
+            [
+              180,
+              264
+            ],
+            [
+              202,
+              244
+            ],
+            [
+              240,
+              216
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "role": "hand",
+      "name": "right_sleeve",
+      "annotations": [
+        {
+          "frame": 14,
+          "points": [
+            [
+              412,
+              276
+            ],
+            [
+              394,
+              263
+            ],
+            [
+              358,
+              239
+            ]
+          ],
+          "labels": [
+            1,
+            1,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

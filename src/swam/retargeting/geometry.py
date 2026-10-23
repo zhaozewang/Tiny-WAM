@@ -49,6 +49,8 @@ class SharpaHand:
                 origin, index,
                 np.fromstring(axis.get('xyz'), sep=' ') if axis is not None else None))
         self.lower, self.upper = np.array(lower), np.array(upper)
+        self._joint_rotations = {}
+        self._wrist_rotation = None
         self.root = side + '_hand_C_MC'
         self.links = [self.root]
         self.labels = [side + 'Hand']
@@ -74,20 +76,29 @@ class SharpaHand:
 
     def forward(self, parameters):
         wrist = np.eye(4)
-        wrist[:3, :3] = Rotation.from_rotvec(parameters[:3]).as_matrix()
+        rotation_key = tuple(parameters[:3])
+        if self._wrist_rotation is None or self._wrist_rotation[0] != rotation_key:
+            self._wrist_rotation = (rotation_key, Rotation.from_rotvec(parameters[:3]).as_matrix())
+        wrist[:3, :3] = self._wrist_rotation[1]
         wrist[:3, 3] = parameters[3:6]
         transforms = {self.root: wrist}
         for parent, child, origin, index, axis in self.chain:
             transform = origin.copy()
             if index is not None:
-                transform[:3, :3] @= Rotation.from_rotvec(axis * parameters[6 + index]).as_matrix()
+                angle = parameters[6 + index]
+                cached = self._joint_rotations.get(index)
+                if cached is None or cached[0] != angle:
+                    cached = (angle, Rotation.from_rotvec(axis * angle).as_matrix())
+                    self._joint_rotations[index] = cached
+                transform[:3, :3] @= cached[1]
             transforms[child] = transforms[parent] @ transform
         return np.array([transforms[name][:3, 3] for name in self.links]), transforms
 
     def show(self, scene, parameters):
-        _, transforms = self.forward(parameters)
+        points, transforms = self.forward(parameters)
         for name, node in self.nodes.items():
             scene.set_pose(node, transforms[name])
+        return points, transforms
 
 
 def project(points, intrinsic):
