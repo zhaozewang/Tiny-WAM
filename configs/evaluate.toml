@@ -1,0 +1,23 @@
+root = ".."
+
+[paths]
+checkpoint = "artifacts/model.pt"
+reference = "artifacts/eval_reference.pt"
+tokenizers = "artifacts/tokenizers"
+image_model = "artifacts/dcae"
+scene_assets = "results/collection_assets"
+output = "results/feedback"
+
+[benchmark]
+expected_step = 50000
+
+[evaluate]
+backend = "reference"
+device = "cuda:0"
+steps = [4, 8, 16]
+goal_seed = 1729
+noise_seed = 1729
+extra_noise_seed = 2026
+ablation_steps = 8
+# Empty uses every sample in the reference bundle.
+splits = []

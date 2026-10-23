@@ -16,6 +16,7 @@ class Paths:
     raw_dataset: Path | None = None
     manifest: Path | None = None
     training_manifest: Path | None = None
+    scene_assets: Path | None = None
 
 
 @dataclass(frozen=True)
@@ -65,6 +66,26 @@ class Training:
 
 
 @dataclass(frozen=True)
+class Evaluation:
+    backend: str = 'reference'
+    device: str = 'cuda:0'
+    steps: tuple = (4, 8, 16)
+    splits: tuple = ()
+    goal_seed: int = 1729
+    noise_seed: int = 1729
+    extra_noise_seed: int = 2026
+    ablation_steps: int = 8
+
+    def __post_init__(self):
+        if self.backend not in ('reference', 'cached', 'cuda_graph'):
+            raise ValueError('Unknown evaluation backend')
+        if not self.steps or min(self.steps) < 1 or self.ablation_steps < 1:
+            raise ValueError('Evaluation flow counts must be positive')
+        if len(set(self.steps)) != len(self.steps):
+            raise ValueError('Evaluation flow counts must be unique')
+
+
+@dataclass(frozen=True)
 class Experiment:
     source: Path
     root: Path
@@ -72,6 +93,7 @@ class Experiment:
     benchmark: Benchmark = field(default_factory=Benchmark)
     train: Training = field(default_factory=Training)
     model: dict = field(default_factory=dict)
+    evaluate: Evaluation = field(default_factory=Evaluation)
 
 
 def resolve_path(root, value):
@@ -89,7 +111,7 @@ def load_config(source):
     source = Path(source).resolve()
     with source.open('rb') as stream:
         values = tomllib.load(stream)
-    unknown = set(values) - {'root', 'paths', 'benchmark', 'train', 'model'}
+    unknown = set(values) - {'root', 'paths', 'benchmark', 'train', 'model', 'evaluate'}
     if unknown:
         raise ValueError(f'Unknown configuration sections: {sorted(unknown)}')
 
@@ -103,4 +125,5 @@ def load_config(source):
         paths[name] = resolve_path(root, value)
     benchmark = Benchmark(**values.get('benchmark', {}))
     train = Training(**values.get('train', {}))
-    return Experiment(source, root, Paths(**paths), benchmark, train, values.get('model', {}))
+    evaluate = Evaluation(**values.get('evaluate', {}))
+    return Experiment(source, root, Paths(**paths), benchmark, train, values.get('model', {}), evaluate)

@@ -12,7 +12,7 @@ from .config import load_config
 def parser():
     cli = argparse.ArgumentParser(description=__doc__)
     commands = cli.add_subparsers(dest='command', required=True)
-    for name in ('doctor', 'reproduce', 'train', 'prepare', 'export'):
+    for name in ('doctor', 'reproduce', 'train', 'prepare', 'export', 'evaluate'):
         command = commands.add_parser(name)
         command.add_argument('--config', type=Path, required=True)
         if name == 'doctor':
@@ -76,6 +76,9 @@ def main(argv=None):
             reproduce(experiment)
         elif arguments.command == 'train':
             train(experiment)
+        elif arguments.command == 'evaluate':
+            from .feedback import run
+            run(experiment)
         elif arguments.command == 'prepare':
             from .prepare import run
             run(experiment, batch_size=arguments.batch)
