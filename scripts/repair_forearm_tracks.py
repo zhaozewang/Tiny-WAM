@@ -3,7 +3,7 @@
 This is automatic re-prompting, not manual correction or ground-truth anatomy.
 The fixed hand fit is never modified. Original usable sleeve masks are retained.
 """
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import json
 from pathlib import Path
@@ -18,8 +18,8 @@ from evaluate_rgb_heldout import execute
 
 def repair(root, item, original):
     import pyrender
-    from swam.retargeting.geometry import SharpaHand, project
-    from swam.retargeting.anchored_arm import supported_forearm_mask
+    from tinywam.retargeting.geometry import SharpaHand, project
+    from tinywam.retargeting.anchored_arm import supported_forearm_mask
     key=item['key']; case=root/'clips'/key
     poses=np.load(case/'smooth/native_parameters.npz')
     labels=np.load(case/'segment/labels.npy')
@@ -97,7 +97,7 @@ if __name__=='__main__':
     a=p.parse_args(); root=a.output.resolve()
     item=next(i for i in json.loads((root/'manifest.json').read_text())['clips'] if i['key']==a.key)
     if a.sam_worker:
-        from swam.retargeting.segmentation import track
+        from tinywam.retargeting.segmentation import track
         case=root/'clips'/a.key
         track(case/'source',case/'sleeves_candidate',case/'automatic_sleeves_prompts.json',
               sam_root=external_path('sam', ''),native=True,output_size=(960,540))

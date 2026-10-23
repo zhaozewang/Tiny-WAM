@@ -1,5 +1,5 @@
 """Paired automatic-prompt experiment; never overwrite manual baseline masks."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import json
 from pathlib import Path

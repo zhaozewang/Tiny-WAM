@@ -17,10 +17,10 @@ import h5py
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
-SOURCE_FILES = ['scripts/retarget_egodex.py', 'src/swam/retargeting/cli.py',
-                'src/swam/retargeting/geometry.py', 'src/swam/retargeting/batch.py',
-                'src/swam/retargeting/connected.py', 'src/swam/r1.py',
-                'src/swam/retargeting/segmentation.py']
+SOURCE_FILES = ['scripts/retarget_egodex.py', 'src/tinywam/retargeting/cli.py',
+                'src/tinywam/retargeting/geometry.py', 'src/tinywam/retargeting/batch.py',
+                'src/tinywam/retargeting/connected.py', 'src/tinywam/r1.py',
+                'src/tinywam/retargeting/segmentation.py']
 
 
 def save_json(path, value):

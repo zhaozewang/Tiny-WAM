@@ -8,8 +8,8 @@ import time
 
 import numpy as np
 
-from swam.r1 import ROOT, assemble, floor_height
-from swam.shards import atomic_json
+from tinywam.r1 import ROOT, assemble, floor_height
+from tinywam.shards import atomic_json
 
 
 def make_scene(asset, height, count, device):
@@ -20,8 +20,8 @@ def make_scene(asset, height, count, device):
     from isaaclab.sensors import TiledCamera, TiledCameraCfg
     from isaacsim.core.cloner import GridCloner
     from pxr import Sdf
-    from swam.workcell import spawn_workcell
-    from swam.preview import color_hands
+    from tinywam.workcell import spawn_workcell
+    from tinywam.preview import color_hands
 
     context = sim.SimulationContext(sim.SimulationCfg(dt=1 / 120, device=device))
     ground = sim.GroundPlaneCfg()
@@ -159,8 +159,8 @@ def main():
         joint_drive=UrdfConverterCfg.JointDriveCfg(
             gains=UrdfConverterCfg.JointDriveCfg.PDGainsCfg(stiffness=3., damping=.3))))
     context, robot, streams, origins = make_scene(converter.usd_path, height, len(args.ids), args.device)
-    from swam.collect import advance
-    from swam.preview import camera_views
+    from tinywam.collect import advance
+    from tinywam.preview import camera_views
     import torch
     names = robot.joint_names
     limits = np.array([[float(xml.find(f"joint[@name='{name}']/limit").get(k))

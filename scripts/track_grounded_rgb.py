@@ -21,7 +21,7 @@ def run(root,key,prompt_source):
     sys.path.insert(0,str(SAMROOT));sys.path.insert(0,str(ROOT/'src'))
     from sam2.build_sam import build_sam2_video_predictor
     from sam2.sam2_image_predictor import SAM2ImagePredictor
-    from swam.retargeting.segmentation import assign_labels
+    from tinywam.retargeting.segmentation import assign_labels
     torch.set_num_threads(4)
     case=root/'clips'/key;source=case/'source';out=case/'segment';out.mkdir(exist_ok=False)
     config=json.loads((source/'prepare.json').read_text())

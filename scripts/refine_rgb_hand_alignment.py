@@ -21,10 +21,10 @@ from scipy.spatial.transform import Rotation
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src'))
-from swam.retargeting.geometry import SharpaHand, project
-from swam.retargeting.occlusion import composite
-from swam.retargeting.segmentation import load_frames
-from swam.retargeting.visibility import pose_validity, filter_valid_runs
+from tinywam.retargeting.geometry import SharpaHand, project
+from tinywam.retargeting.occlusion import composite
+from tinywam.retargeting.segmentation import load_frames
+from tinywam.retargeting.visibility import pose_validity, filter_valid_runs
 from occlude_rgb_robot_hands import panels, sha256
 
 ORDER = [0]+list(range(5,21))+list(range(1,5))
@@ -183,10 +183,10 @@ def run(args):
     scene.add(pyrender.IntrinsicsCamera(k[0,0],k[1,1],k[0,2],k[1,2],znear=.01,zfar=100),pose=np.diag([1.,-1.,-1.,1.]))
     scene.add(pyrender.DirectionalLight(color=np.ones(3),intensity=2),pose=np.diag([1.,-1.,-1.,1.]))
     if getattr(args,'gpu_objective',False):
-        from swam.retargeting.gpu_silhouette import GpuSilhouetteRenderer
+        from tinywam.retargeting.gpu_silhouette import GpuSilhouetteRenderer
         renderer = GpuSilhouetteRenderer(960,540)
     elif getattr(args,'fast_mask_readback',False):
-        from swam.retargeting.silhouette_renderer import SilhouetteRenderer
+        from tinywam.retargeting.silhouette_renderer import SilhouetteRenderer
         renderer = SilhouetteRenderer(960,540)
     else:
         renderer = pyrender.OffscreenRenderer(960,540)

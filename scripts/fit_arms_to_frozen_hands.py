@@ -16,11 +16,11 @@ from scipy.optimize import least_squares
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from swam.retargeting.anchored_arm import WristAnchoredArm, projected_chain_error, proximal_forearm_mask, observed_forearm_mask, supported_forearm_mask
-from swam.retargeting.geometry import SharpaHand, project
-from swam.retargeting.segmentation import load_frames
-from swam.retargeting.occlusion import composite
-from swam.retargeting.visibility import pose_validity, filter_valid_runs
+from tinywam.retargeting.anchored_arm import WristAnchoredArm, projected_chain_error, proximal_forearm_mask, observed_forearm_mask, supported_forearm_mask
+from tinywam.retargeting.geometry import SharpaHand, project
+from tinywam.retargeting.segmentation import load_frames
+from tinywam.retargeting.occlusion import composite
+from tinywam.retargeting.visibility import pose_validity, filter_valid_runs
 from occlude_rgb_robot_hands import sha256, panels
 
 
@@ -167,7 +167,7 @@ def run(args):
     for arm in arms.values():
         arm.add_visuals(scene)
     if getattr(args,'fast_mask_readback',False):
-        from swam.retargeting.silhouette_renderer import SilhouetteRenderer
+        from tinywam.retargeting.silhouette_renderer import SilhouetteRenderer
         renderer = SilhouetteRenderer(960,540)
     else:
         renderer = pyrender.OffscreenRenderer(960,540)

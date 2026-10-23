@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from swam.retargeting.occlusion import composite
-from swam.retargeting.segmentation import assign_labels
+from tinywam.retargeting.occlusion import composite
+from tinywam.retargeting.segmentation import assign_labels
 
 
 def test_visible_object_only_occludes_intersecting_robot_pixels():

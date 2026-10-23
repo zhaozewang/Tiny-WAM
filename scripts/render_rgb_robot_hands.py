@@ -28,7 +28,7 @@ import torch.nn.functional as F
 from retargeting.core.kinematics.pinocchio_model import RobotPinocchio
 from retargeting.core.kinematics.adaptor import RobotAdaptor
 from retargeting.core.types import RetargetingHandObservation
-from swam.retargeting.geometry import SharpaHand
+from tinywam.retargeting.geometry import SharpaHand
 from compare_egodex_retargeting import rigid_fit, paper_retargeter, TIPS, BASES
 
 ORDER = [0] + list(range(5,21)) + list(range(1,5))

@@ -2,8 +2,8 @@
 from pathlib import Path
 
 import torch
-from swam.flow_model import FlowConfig, FlowWorldModel
-from swam.state_tokenizer import ProprioVAE
+from tinywam.flow_model import FlowConfig, FlowWorldModel
+from tinywam.state_tokenizer import ProprioVAE
 
 
 def image_model_directory(path):

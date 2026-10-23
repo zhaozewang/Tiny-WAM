@@ -1,5 +1,5 @@
 """Supervise bounded, restartable continuous-trajectory collection on the HDD."""
-from swam.paths import data_path
+from tinywam.paths import data_path
 import argparse
 import fcntl
 import json
@@ -11,7 +11,7 @@ import subprocess
 import sys
 import time
 
-from swam.shards import atomic_json, publish_episode, sha256
+from tinywam.shards import atomic_json, publish_episode, sha256
 
 
 def stop_worker(process):
@@ -26,7 +26,7 @@ def stop_worker(process):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--root', type=Path, default=Path(data_path('swam/r1_random_10min_v5')))
+    parser.add_argument('--root', type=Path, default=Path(data_path('tinywam/r1_random_10min_v5')))
     parser.add_argument('--episodes', type=int, default=84)
     parser.add_argument('--seconds', type=int, default=600)
     parser.add_argument('--parallel', type=int, default=4)
@@ -54,7 +54,7 @@ def main():
     else:
         atomic_json(config_path,config)
     source=Path(__file__).resolve().parents[1]
-    snapshots={name:source/'src/swam'/name for name in
+    snapshots={name:source/'src/tinywam'/name for name in
         ('collect_long.py','shards.py','r1.py','workcell.py','collect.py','preview.py')}
     snapshots.update({'generate_dataset.py':Path(__file__).resolve(),
         'review_long_batch.py':source/'scripts/review_long_batch.py',
@@ -109,7 +109,7 @@ def main():
             attempts[str(identifier)]=attempts.get(str(identifier),0)+1
         atomic_json(attempts_path,attempts)
         batch_name=f'batch_{ids[0]:05d}_{time.time_ns()}'
-        command=[sys.executable,'-u','-m','swam.collect_long','--root',str(args.root),
+        command=[sys.executable,'-u','-m','tinywam.collect_long','--root',str(args.root),
                  '--assets',str(args.assets),'--ids',*map(str,ids),'--seconds',str(args.seconds),'--device','cuda:0']
         log=args.root/'logs'/f'{batch_name}.log'
         with log.open('w') as stream:

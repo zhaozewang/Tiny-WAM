@@ -1,5 +1,5 @@
 """Recover missed detections in a frozen pilot using its manually seeded SAM tracks."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import json
 from pathlib import Path
@@ -43,7 +43,7 @@ def recover(source, output, predictions_root=None, reconcile_identities=False, t
     # Reuse trusted-checkpoint compatibility and exactly the original pose model.
     from reestimate_egodex_rgb import serializable, torch, cv2, imageio, np
     from wilor_mini.pipelines.wilor_hand_pose3d_estimation_pipeline import WiLorHandPose3dEstimationPipeline
-    from swam.retargeting.tracked_roi import mask_box, select_tracked_detection, reconcile_tracked_identities
+    from tinywam.retargeting.tracked_roi import mask_box, select_tracked_detection, reconcile_tracked_identities
     torch.set_num_threads(4)
     pipeline = WiLorHandPose3dEstimationPipeline(device=torch.device('cuda'), dtype=torch.float32,
         verbose=False, wilor_pretrained_dir=str(Path(external_path('retarget', 'wilor-weights'))))
@@ -130,7 +130,7 @@ def merge_accepted(old, candidate, output, camera):
     os.environ.setdefault('PYOPENGL_PLATFORM','egl')
     import numpy as np
     import pyrender
-    from swam.retargeting.geometry import SharpaHand
+    from tinywam.retargeting.geometry import SharpaHand
     output.mkdir(parents=True,exist_ok=False)
     previous=np.load(old/'native_parameters.npz');new=np.load(candidate/'native_parameters.npz')
     merged={name:new[name].copy() for name in new.files}

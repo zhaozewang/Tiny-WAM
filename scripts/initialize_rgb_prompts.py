@@ -1,5 +1,5 @@
 """Local VLM first-frame prompts for a separately evaluated automatic variant."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import copy
 import json

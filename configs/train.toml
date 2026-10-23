@@ -20,4 +20,4 @@ frames = 121
 seed = 42
 optimizer = "adamw8bit"
 wandb_mode = "disabled"
-wandb_project = "swam"
+wandb_project = "tinywam"

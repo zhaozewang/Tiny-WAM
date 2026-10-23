@@ -51,7 +51,7 @@ def verify_manifest(paths):
 def check_training(experiment):
     import torch
     from dataclasses import asdict
-    from swam.flow_model import FlowConfig
+    from tinywam.flow_model import FlowConfig
 
     # Validate data identity and completeness before creating any distributed workers.
     paths = experiment.paths

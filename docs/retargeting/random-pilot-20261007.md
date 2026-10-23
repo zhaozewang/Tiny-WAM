@@ -13,7 +13,7 @@ No existing accepted poses, masks, videos or training settings were overwritten.
 
 ## Sampling and Coverage
 
-- Archive: `${SWAM_DATA_ROOT}/egodex/test.zip`, resolving to `${SWAM_DATA_ROOT}/egodex/test.zip`.
+- Archive: `${TINYWAM_DATA_ROOT}/egodex/test.zip`, resolving to `${TINYWAM_DATA_ROOT}/egodex/test.zip`.
 - Sampling seed: `20261008`; 4 members drawn uniformly without replacement from
   3,243 paired RGB/HDF5 members. No quality filtering, forced favorite or replacements.
 - For longer sources, a uniformly random 33-frame window at source stride 2.
@@ -105,7 +105,7 @@ below replay THIS draw with its manually prepared prompts, not a new random seed
 
 ```bash
 cd "${TINY_WAM_ROOT:?Set TINY_WAM_ROOT to your checkout}"
-P=${SWAM_RETARGET_ROOT}/compare-env/bin/python
+P=${TINYWAM_RETARGET_ROOT}/compare-env/bin/python
 RUN=results/rgb_random_repro_01
 "$P" scripts/sample_rgb_retarget_batch.py --output "$RUN" --stage plan \
   --seed 20261008 --count 4 --frames 33

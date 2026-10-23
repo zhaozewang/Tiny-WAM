@@ -11,7 +11,7 @@ import torch
 from torch.nn import functional as F
 from torch.nn.attention import SDPBackend, sdpa_kernel
 
-from swam.flow_model import layer_norm, timestep_features
+from tinywam.flow_model import layer_norm, timestep_features
 
 
 def rotary_terms(seconds, width, scale):

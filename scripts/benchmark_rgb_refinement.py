@@ -2,6 +2,7 @@
 import os
 os.environ.setdefault('PYOPENGL_PLATFORM','egl')
 import argparse
+import ast
 import contextlib
 import importlib.util
 import json
@@ -17,8 +18,19 @@ sys.path.insert(0,str(ROOT/'src'))
 
 def module(path,name):
     spec=importlib.util.spec_from_file_location(name,path)
-    result=importlib.util.module_from_spec(spec);spec.loader.exec_module(result)
-    result.ROOT=ROOT
+    result = importlib.util.module_from_spec(spec)
+    tree = ast.parse(path.read_text(), filename=str(path))
+
+    # Resolve frozen snapshots against the renamed package without editing them.
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module:
+            parts = node.module.split('.')
+            if parts[0] == 'swam':
+                parts[0] = 'tinywam'
+                node.module = '.'.join(parts)
+    code = compile(tree, str(path), 'exec')
+    exec(code, result.__dict__)
+    result.ROOT = ROOT
     return result
 
 

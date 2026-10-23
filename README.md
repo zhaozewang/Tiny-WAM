@@ -34,7 +34,7 @@ scale, wrist adapters and an ALOHA table. The left hand is mirrored. Rendered
 views are head, left and right; the native wrist-camera housings are removed.
 
 Preview requires a separate Isaac Lab / Isaac Sim 5.1 environment. Activate it
-or set `SWAM_PYTHON` to its interpreter:
+or set `TINYWAM_PYTHON` to its interpreter:
 
 ```bash
 ./run.sh --output results/stills --frames 1 --device cuda:0

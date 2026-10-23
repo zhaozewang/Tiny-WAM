@@ -38,7 +38,7 @@ def train(experiment):
         if experiment.train.workers > 1:
             command = [sys.executable, '-m', 'torch.distributed.run', '--standalone',
                        '--nproc-per-node', str(experiment.train.workers), '--module',
-                       'swam.tasks.manipulation.prediction', 'train',
+                       'tinywam.tasks.manipulation.prediction', 'train',
                        '--config', str(experiment.source)]
             subprocess.run(command, check=True)
             return

@@ -6,10 +6,10 @@ import time
 import numpy as np
 import torch
 
-from swam.flow_inference import FlowInference, frozen_inference_model
-from swam.flow_sampling import next_frame
-from swam.flow_tasks import prepare_window
-from swam.shards import atomic_json, sha256
+from tinywam.flow_inference import FlowInference, frozen_inference_model
+from tinywam.flow_sampling import next_frame
+from tinywam.flow_tasks import prepare_window
+from tinywam.shards import atomic_json, sha256
 from .codec import InputCodec, load_model
 
 

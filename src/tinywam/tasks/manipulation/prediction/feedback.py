@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 
 import numpy as np
 
-from swam.paths import asset_filename
-from swam.shards import atomic_json, sha256
+from tinywam.paths import asset_filename
+from tinywam.shards import atomic_json, sha256
 
 
 def trials(settings):
@@ -43,8 +43,8 @@ class Scene:
 
     def __init__(self, assets, device):
         from pxr import Usd, PhysxSchema
-        from swam.r1 import floor_height
-        from swam.collect_long import make_scene
+        from tinywam.r1 import floor_height
+        from tinywam.collect_long import make_scene
 
         # Resolve relocated meshes without changing the recorded scene settings.
         xml = ET.parse(assets / 'r1_isyhand.urdf').getroot()
@@ -133,7 +133,7 @@ class Predictor:
 
     def predict(self, rgb, qpos, qvel, command, frame):
         import torch
-        from swam.flow_sampling import next_frame
+        from tinywam.flow_sampling import next_frame
 
         # Encode only the actual current observation and the already committed action.
         tick = time.perf_counter()
@@ -164,7 +164,7 @@ class Predictor:
 
     def cached_prediction(self, current, times, frame):
         import torch
-        from swam.flow_inference import FlowInference
+        from tinywam.flow_inference import FlowInference
         if self.engine is None:
             self.engine = FlowInference(self.model, self.goals, self.goal_times,
                                         task='full', max_frames=121)
@@ -188,7 +188,7 @@ class Predictor:
 
 def select_condition(sample, settings):
     import torch
-    from swam.flow_tasks import prepare_window
+    from tinywam.flow_tasks import prepare_window
     values = {}
     for name, value in sample['latents'].items():
         values[name] = value[None].to(settings.device)
@@ -363,7 +363,7 @@ def save_trajectory(trial, condition):
 
 def protocol(experiment, scene):
     import torch
-    from swam import collect_long
+    from tinywam import collect_long
     paths, settings = experiment.paths, experiment.evaluate
     return dict(source_step=experiment.benchmark.expected_step,
                 checkpoint=str(paths.checkpoint), checkpoint_sha256=sha256(paths.checkpoint),
@@ -411,7 +411,7 @@ def evaluate_sample(experiment, scene, model, codec, sample, label, report):
 
 def evaluate(experiment):
     import torch
-    from swam.flow_inference import frozen_inference_model
+    from tinywam.flow_inference import frozen_inference_model
     from .codec import InputCodec, load_model
     settings, paths = experiment.evaluate, experiment.paths
     torch.set_num_threads(4)

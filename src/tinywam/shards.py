@@ -82,12 +82,12 @@ def cached_shard(source, cache_root):
     cache_root.mkdir(parents=True, exist_ok=True)
     if source.parent == cache_root or source.is_relative_to(cache_root):
         raise ValueError('Cache must be separate from the HDD source')
-    marker = cache_root / '.swam_cache.json'
+    marker = cache_root / '.tinywam_cache.json'
     if not marker.exists():
         if any(cache_root.iterdir()):
-            raise ValueError('Use an empty dedicated SWAM cache directory')
-        atomic_json(marker, dict(owner='swam-shard-cache', schema=1))
-    assert json.loads(marker.read_text())['owner'] == 'swam-shard-cache'
+            raise ValueError('Use an empty dedicated Tiny-WAM cache directory')
+        atomic_json(marker, dict(owner='tinywam-shard-cache', schema=1))
+    assert json.loads(marker.read_text())['owner'] == 'tinywam-shard-cache'
     if cache_root.stat().st_dev == source.stat().st_dev:
         raise ValueError('SSD cache and HDD source must be on different filesystems')
     manifest = json.loads(source.with_suffix('.json').read_text())
@@ -119,7 +119,7 @@ def _read_mp4_rgb(archive, start, frames):
     height,width=storage['resolution'];fps=storage['fps']
     whole_seconds,remainder=divmod(start,fps)
     images=[]
-    with tempfile.TemporaryDirectory(prefix='swam-mp4-') as directory:
+    with tempfile.TemporaryDirectory(prefix='tinywam-mp4-') as directory:
         for view in storage['views']:
             path=Path(directory)/(view+'.mp4')
             with path.open('wb') as output:

@@ -1,5 +1,5 @@
 """Record local reproduction dependencies without copying private media or weights."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import hashlib
 import json

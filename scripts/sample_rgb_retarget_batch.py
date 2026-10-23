@@ -1,5 +1,5 @@
 """Frozen random pilot of RGB retargeting; failures are retained, never replaced."""
-from swam.paths import data_path, external_path
+from tinywam.paths import data_path, external_path
 import argparse
 import hashlib
 import json
@@ -188,7 +188,7 @@ if __name__=='__main__':
     elif a.stage=='prepare-short': prepare_short(a)
     elif a.stage=='track-one':
         sys.path.insert(0,str(ROOT/'src'))
-        from swam.retargeting.segmentation import track
+        from tinywam.retargeting.segmentation import track
         case=a.output/'clips'/a.key
         track(case/'source',case/a.mask_kind,case/(a.mask_kind+'_prompts.json'),
               sam_root=SAMROOT,native=True,output_size=(960,540))

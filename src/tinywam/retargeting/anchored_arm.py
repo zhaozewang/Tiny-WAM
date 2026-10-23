@@ -10,7 +10,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 from scipy.ndimage import label
 
-from swam.r1 import SOURCE, origin_matrix
+from tinywam.r1 import SOURCE, origin_matrix
 
 
 class WristAnchoredArm:

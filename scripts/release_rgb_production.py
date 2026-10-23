@@ -22,12 +22,12 @@ def release(collection,pilot,queue_recovery=False):
     if done['frames']!=item['frames_at_stride_two'] or done['frames']!=verification['frames']:
         raise ValueError('Pilot is not a full original video')
     core=json.loads((collection/'baseline_hashes.json').read_text())
-    protected=[p for p in core if p.startswith('src/swam/retargeting/') or Path(p).name in
+    protected=[p for p in core if p.startswith('src/tinywam/retargeting/') or Path(p).name in
         ('render_rgb_robot_hands.py','reestimate_egodex_rgb.py','refine_rgb_hand_alignment.py','fit_arms_to_frozen_hands.py','repair_forearm_tracks.py')]
     for name in protected:
         if hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=core[name]:
             raise ValueError('Accepted fitting baseline changed: '+name)
-    files=[*ROOT.glob('src/swam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
+    files=[*ROOT.glob('src/tinywam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
            ROOT/'scripts/fit_arms_to_frozen_hands.py',ROOT/'scripts/repair_forearm_tracks.py',ROOT/'scripts/initialize_rgb_prompts.py']
     hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
     video=result/'review'/(pilot+'.mp4')

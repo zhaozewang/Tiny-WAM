@@ -1,5 +1,5 @@
 """Independent RGB-only hand estimation, before robot retargeting or smoothing."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import hashlib
 import inspect

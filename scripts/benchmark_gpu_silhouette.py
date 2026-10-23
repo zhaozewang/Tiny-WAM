@@ -1,5 +1,5 @@
 """Paired real-data fitting test; no profiler and no reduced fitting settings."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import json
 import os

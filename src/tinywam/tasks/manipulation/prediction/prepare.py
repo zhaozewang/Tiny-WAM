@@ -11,7 +11,7 @@ import tempfile
 import numpy as np
 import torch
 
-from swam.shards import atomic_json, sha256
+from tinywam.shards import atomic_json, sha256
 from .codec import InputCodec
 
 

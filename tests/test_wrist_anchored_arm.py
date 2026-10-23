@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy.spatial.transform import Rotation
 
-from swam.retargeting.anchored_arm import WristAnchoredArm
+from tinywam.retargeting.anchored_arm import WristAnchoredArm
 
 
 @pytest.mark.parametrize('side',['left','right'])

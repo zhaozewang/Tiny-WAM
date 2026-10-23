@@ -15,9 +15,9 @@ train = ["bitsandbytes==0.48.1", "wandb==0.22.3"]
 geometry = ["trimesh==4.5.1", "pyrender==0.1.45", "Pillow==11.3.0", "imageio==2.37.0", "imageio-ffmpeg==0.6.0", "opencv-python-headless==4.10.0.84", "h5py==3.12.1"]
 
 [project.scripts]
-tiny-wam = "swam.tasks.manipulation.prediction.cli:main"
-tiny-wam-retarget = "swam.retargeting.cli:main"
-tiny-wam-preview = "swam.preview:main"
+tiny-wam = "tinywam.tasks.manipulation.prediction.cli:main"
+tiny-wam-retarget = "tinywam.retargeting.cli:main"
+tiny-wam-preview = "tinywam.preview:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

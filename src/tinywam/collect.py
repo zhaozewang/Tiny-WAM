@@ -7,15 +7,15 @@ import shutil
 
 import numpy as np
 
-from swam.r1 import ROOT, assemble, floor_height
+from tinywam.r1 import ROOT, assemble, floor_height
 
 
 def physical_scene(asset, height, device):
     import isaaclab.sim as sim
     from isaaclab.assets import Articulation, ArticulationCfg
     from isaaclab.actuators import ImplicitActuatorCfg
-    from swam.workcell import spawn_workcell
-    from swam.preview import color_hands
+    from tinywam.workcell import spawn_workcell
+    from tinywam.preview import color_hands
 
     context = sim.SimulationContext(sim.SimulationCfg(dt=1 / 120, device=device))
     ground = sim.GroundPlaneCfg()
@@ -169,7 +169,7 @@ def main():
               for i, angle in enumerate(reference['ik'][side]['joint_angles_rad'], 1)}
     shutil.copy2(__file__, output / 'collect.py')
     launcher = AppLauncher(args)
-    from swam.preview import convert, camera_views
+    from tinywam.preview import convert, camera_views
     converted = convert(output)
     context, robot = physical_scene(converted.usd_path, height, args.device)
     assert robot.num_joints == 48

@@ -1,5 +1,5 @@
 """Full-video production: preserve per-video failures without stopping the queue."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import fcntl
 import hashlib

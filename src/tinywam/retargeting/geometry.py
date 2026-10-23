@@ -20,7 +20,7 @@ import trimesh
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'src'))
-from swam.r1 import HAND, origin_matrix, poses, mirror_hand
+from tinywam.r1 import HAND, origin_matrix, poses, mirror_hand
 
 FINGERS = [('IndexFinger', '1'), ('MiddleFinger', '3'), ('RingFinger', '4'), ('Thumb', '2')]
 INDICES = np.arange(20, 86, 2)

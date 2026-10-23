@@ -13,10 +13,10 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel
 from torch.nn.attention import sdpa_kernel, SDPBackend
 
-from swam.flow_data import GrowingWindows
-from swam.flow_model import FlowConfig, FlowWorldModel, flow_loss
-from swam.flow_tasks import prepare_window
-from swam.shards import atomic_json
+from tinywam.flow_data import GrowingWindows
+from tinywam.flow_model import FlowConfig, FlowWorldModel, flow_loss
+from tinywam.flow_tasks import prepare_window
+from tinywam.shards import atomic_json
 
 
 def learning_rate(step, base_lr, steps):

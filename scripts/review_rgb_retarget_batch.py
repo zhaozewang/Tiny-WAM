@@ -14,10 +14,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from swam.retargeting.segmentation import load_frames
-from swam.retargeting.visibility import pose_validity
-from swam.retargeting.occlusion import composite
-from swam.retargeting.anchored_arm import WristAnchoredArm
+from tinywam.retargeting.segmentation import load_frames
+from tinywam.retargeting.visibility import pose_validity
+from tinywam.retargeting.occlusion import composite
+from tinywam.retargeting.anchored_arm import WristAnchoredArm
 
 
 def limits(side):
@@ -165,10 +165,10 @@ def review(root,baseline=None):
                 interpretation='Software invariants and source coverage are separate from visual quality; no dataset-wide guarantee')
     (out/'verification.json').write_text(json.dumps(result,indent=2)+'\n')
     snapshot=out/'source_snapshot'
-    for p in [*ROOT.glob('src/swam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*py'),ROOT/'scripts/fit_arms_to_frozen_hands.py']:
+    for p in [*ROOT.glob('src/tinywam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*py'),ROOT/'scripts/fit_arms_to_frozen_hands.py']:
         dst=snapshot/p.relative_to(ROOT);dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,dst)
     (out/'working_diff.patch').write_bytes(subprocess.check_output(['git','diff','--',
-        'src/swam/retargeting','scripts/reestimate_egodex_rgb.py','scripts/render_rgb_robot_hands.py',
+        'src/tinywam/retargeting','scripts/reestimate_egodex_rgb.py','scripts/render_rgb_robot_hands.py',
         'scripts/refine_rgb_hand_alignment.py','scripts/fit_arms_to_frozen_hands.py','tests/test_rgb_robot_hands.py'],cwd=ROOT))
     print(json.dumps(result,indent=2),flush=True)
 

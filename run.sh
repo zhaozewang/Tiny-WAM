@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-swam_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-swam_python="${SWAM_PYTHON:-python3}"
+tinywam_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+tinywam_python="${TINYWAM_PYTHON:-python3}"
 export OMNI_KIT_ACCEPT_EULA=YES
-exec "$swam_python" "$swam_root/run.py" "$@"
+exec "$tinywam_python" "$tinywam_root/run.py" "$@"

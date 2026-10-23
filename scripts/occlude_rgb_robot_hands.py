@@ -1,5 +1,5 @@
 """Transfer observed object visibility to the frozen, approved RGB robot render."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import hashlib
 import json
@@ -12,8 +12,8 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
-from swam.retargeting.occlusion import composite
-from swam.retargeting.segmentation import load_frames, track
+from tinywam.retargeting.occlusion import composite
+from tinywam.retargeting.segmentation import load_frames, track
 
 
 def sha256(path):

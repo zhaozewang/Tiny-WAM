@@ -14,7 +14,7 @@ from scipy.spatial.transform import Rotation
 import torch
 import torch.nn.functional as F
 
-from swam.r1 import SOURCE, origin_matrix, poses
+from tinywam.r1 import SOURCE, origin_matrix, poses
 
 DTYPE = torch.float64
 

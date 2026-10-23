@@ -35,7 +35,7 @@ def plan(root, archives, count, seed):
                 state='selected',source_frames=total,frames_at_stride_two=len(range(0,total,2)),
                 source_bytes=info.file_size+meta.file_size,mp4_crc=info.CRC,hdf5_crc=meta.CRC))
     hashes={}
-    for path in [*ROOT.glob('src/swam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
+    for path in [*ROOT.glob('src/tinywam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
                  ROOT/'scripts/fit_arms_to_frozen_hands.py',ROOT/'scripts/repair_forearm_tracks.py']:
         relative=path.relative_to(ROOT); dst=root/'accepted_baseline_snapshot'/relative
         dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,dst)

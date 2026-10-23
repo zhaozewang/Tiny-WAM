@@ -1,8 +1,9 @@
 # Development
 
-- Use `src/swam/tasks/manipulation/prediction/` for training, preparation and
+- Use `src/tinywam/tasks/manipulation/prediction/` for training, preparation and
   evaluation. Select experiments through `configs/`; reuse existing task code.
-- Keep the `swam` namespace, `SWAM_*` variables and existing dataset/run IDs.
+- Use the `tinywam` namespace and `TINYWAM_*` environment variables. Preserve
+  historical dataset/run IDs and source snapshots.
 - Preserve datasets, checkpoints, assets and run snapshots in their original
   locations. Put new outputs in `results/` and working notes in `notes/`.
 - Experimental settings and dataset distinctions are in `docs/experiments.md`.

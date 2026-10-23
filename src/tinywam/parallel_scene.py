@@ -7,8 +7,8 @@ def make_scene(asset, height, count, device, partitions=False, solver_position_i
     from isaaclab.sensors import TiledCamera, TiledCameraCfg
     from isaacsim.core.cloner import GridCloner
     from pxr import Sdf
-    from swam.workcell import spawn_workcell
-    from swam.preview import color_hands
+    from tinywam.workcell import spawn_workcell
+    from tinywam.preview import color_hands
 
     context = sim.SimulationContext(sim.SimulationCfg(dt=1 / 120, device=device))
     ground = sim.GroundPlaneCfg()

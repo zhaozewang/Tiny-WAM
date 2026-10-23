@@ -55,7 +55,7 @@ def freeze(root,tracking_v2=False,gpu_objective=False):
         publication=False)
     save(root/'protocol.json',protocol)
     files={}
-    for path in [*ROOT.glob('src/swam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
+    for path in [*ROOT.glob('src/tinywam/retargeting/*.py'),*ROOT.glob('scripts/*rgb*.py'),
                  ROOT/'scripts/fit_arms_to_frozen_hands.py',ROOT/'scripts/repair_forearm_tracks.py']:
         dst=root/'source_snapshot'/path.relative_to(ROOT);dst.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(path,dst);files[str(path.relative_to(ROOT))]=hashlib.sha256(path.read_bytes()).hexdigest()

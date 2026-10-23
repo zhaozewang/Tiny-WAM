@@ -120,21 +120,35 @@ and raw-dataset preparation were not rerun.
 
 ## Layout
 
-- `src/swam/tasks/manipulation/prediction/`: preparation, training, benchmarking and reports.
-- `src/swam/flow_*.py`, `state_tokenizer.py`: model, sampling, cache and tokenizers.
-- `src/swam/retargeting/`: hand and arm geometry.
+- `src/tinywam/tasks/manipulation/prediction/`: preparation, training, benchmarking and reports.
+- `src/tinywam/flow_*.py`, `state_tokenizer.py`: model, sampling, cache and tokenizers.
+- `src/tinywam/retargeting/`: hand and arm geometry.
 - `configs/`: experiment settings and artifact manifests.
 - `scripts/`: earlier experiment and scene tools.
 
 Data, weights, environments and generated outputs are Git-ignored. Historical
 JSON snapshots retain their recorded paths and are excluded from `git archive`.
 
-For external installations, `SWAM_DATA_ROOT`, `SWAM_MODEL_ROOT`,
-`SWAM_CACHE_ROOT` and `SWAM_ASSETS_ROOT` override data, weights, cache and mesh
-locations. Retargeting uses `SWAM_RETARGET_ROOT`, `SWAM_SAM_ROOT`,
-`SWAM_SAM_ENV_ROOT`, `SWAM_VIDEO_DEPS_ROOT`, `SWAM_PROMPT_MODEL_ROOT` and
-`SWAM_DINO_MODEL_ROOT`; defaults are under `external/`. `SWAM_PYTHON` selects
+For external installations, `TINYWAM_DATA_ROOT`, `TINYWAM_MODEL_ROOT`,
+`TINYWAM_CACHE_ROOT` and `TINYWAM_ASSETS_ROOT` override data, weights, cache and mesh
+locations. Retargeting uses `TINYWAM_RETARGET_ROOT`, `TINYWAM_SAM_ROOT`,
+`TINYWAM_SAM_ENV_ROOT`, `TINYWAM_VIDEO_DEPS_ROOT`, `TINYWAM_PROMPT_MODEL_ROOT` and
+`TINYWAM_DINO_MODEL_ROOT`; defaults are under `external/`. `TINYWAM_PYTHON` selects
 the Isaac Lab interpreter for `run.sh`. `TINY_WAM_ROOT` in documentation
 examples means the checkout directory.
 
 Third-party weights, meshes and videos retain their original licenses.
+
+## Package naming
+
+The Python package is `tinywam`; environment overrides use `TINYWAM_*`.
+Reinstall the editable package after upgrading (`python -m pip install --no-deps -e .`)
+and update shell exports and `python -m` commands. The CLI remains `tiny-wam`.
+New W&B runs default to the `tinywam` project. Historical run links and dated
+provenance records retain their original identifiers.
+
+Datasets, checkpoints and recorded source snapshots stay in place. Use explicit
+config paths or `--root` for existing datasets. Shard caches use a new ownership
+marker; choose a fresh empty `TINYWAM_CACHE_ROOT` rather than reusing an old cache.
+Source-hash checks remain strict: resume old collections with their saved source,
+or start a new output directory with the renamed package.

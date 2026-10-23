@@ -1,9 +1,9 @@
 # RGB Hand Retargeting and Wrist Anchored Arms
 
 Research record and reproduction procedure, 2026-10-07. This covers the EgoDex
-retargeting work migrated into SWAM, the methods we tried, the accepted RGB hand
+retargeting work migrated into Tiny-WAM, the methods we tried, the accepted RGB hand
 replacement, object occlusion, bottle alignment refinement, and arm attachment.
-It does not describe or modify SWAM world-model training, physical trajectory
+It does not describe or modify Tiny-WAM world-model training, physical trajectory
 collection, or the earlier indoor-scene generation project.
 
 **Current result:** two short RGB-driven Sharpa hand-replacement previews;
@@ -48,7 +48,7 @@ the chopsticks clip as having the same final silhouette/arm treatment.
 
 | Stage | Implementation and observation | Decision |
 | --- | --- | --- |
-| Migration | Moved geometry, connected-hand fitting, batch plumbing and segmentation into `src/swam/retargeting/`; added SWAM entrypoints | Keep this work separate from training |
+| Migration | Moved geometry, connected-hand fitting, batch plumbing and segmentation into `src/tinywam/retargeting/`; added Tiny-WAM entrypoints | Keep this work separate from training |
 | Early connected fit | EgoDex targets, adjustable arm/hand sizes and wrist proportions; approximately 0.564 arm scale, 0.730 hand scale in one reviewed preview | Preserve as an archive, not current geometry |
 | Joint segmentation | Compared SAM2 joint hand/object masks at prepared and native input sizes; tried Cutie propagation | Native-input SAM chosen for current local masks; no universal tracker win established |
 | Published retargeting objectives | Ran Position, Vector, DexPilot and two author-provided objective settings on native R1/Sharpa geometry | Better annotation fit did not fix RGB alignment |
@@ -181,7 +181,7 @@ pixels are removed outside the robot silhouette.
 
 ## Object Visibility
 
-`src/swam/retargeting/segmentation.py` jointly tracks hand and object identities
+`src/tinywam/retargeting/segmentation.py` jointly tracks hand and object identities
 with `non_overlap_masks=True`. Native-image inference is followed by bilinear
 resizing of logits, then a positive-maximum label assignment at output size.
 The current prompts are versioned in [configs](configs).
@@ -247,7 +247,7 @@ contains true motion. Residual human pixels and imperfect grasps remain visible.
 
 ## Arms With Frozen Hands
 
-`src/swam/retargeting/anchored_arm.py` anchors the terminal frame algebraically.
+`src/tinywam/retargeting/anchored_arm.py` anchors the terminal frame algebraically.
 Given accepted hand transform H and constant flange-to-hand mount M:
 
 ```text
@@ -293,7 +293,7 @@ estimation. Use a new output directory; do not delete or overwrite prior results
 
 ```bash
 cd "${TINY_WAM_ROOT:?Set TINY_WAM_ROOT to your checkout}"
-COMPARE=${SWAM_RETARGET_ROOT}/compare-env/bin/python
+COMPARE=${TINYWAM_RETARGET_ROOT}/compare-env/bin/python
 export PYOPENGL_PLATFORM=egl
 "$COMPARE" scripts/fit_arms_to_frozen_hands.py \
   --output results/rgb_robot_bottle_arms_repro_01
@@ -312,12 +312,12 @@ Use the existing separate environments; do not pip-install over production
 Isaac/learning environments:
 
 ```bash
-CACHE=${SWAM_RETARGET_ROOT}
+CACHE=${TINYWAM_RETARGET_ROOT}
 COMPARE="$CACHE/compare-env/bin/python"
 RGB="$CACHE/rgb-env/bin/python"
-SAM=${SWAM_SAM_ENV_ROOT}/bin/python
-SAMROOT=${SWAM_SAM_ROOT}
-VIDEO_DEPS=${SWAM_VIDEO_DEPS_ROOT}
+SAM=${TINYWAM_SAM_ENV_ROOT}/bin/python
+SAMROOT=${TINYWAM_SAM_ROOT}
+VIDEO_DEPS=${TINYWAM_VIDEO_DEPS_ROOT}
 export PYOPENGL_PLATFORM=egl
 export PYTHONPATH="$PWD/src:$CACHE/objective-retargeting/src${PYTHONPATH:+:$PYTHONPATH}"
 ```
@@ -338,10 +338,10 @@ or automatic model download workflow is not promised.
 Required local model locations:
 
 ```text
-${SWAM_RETARGET_ROOT}/wilor-weights/pretrained_models/
-${SWAM_SAM_ROOT}/sam2.1_hiera_large.pt
-${SWAM_RETARGET_ROOT}/objective-retargeting/
-${SWAM_RETARGET_ROOT}/dex-retargeting/
+${TINYWAM_RETARGET_ROOT}/wilor-weights/pretrained_models/
+${TINYWAM_SAM_ROOT}/sam2.1_hiera_large.pt
+${TINYWAM_RETARGET_ROOT}/objective-retargeting/
+${TINYWAM_RETARGET_ROOT}/dex-retargeting/
 ```
 
 `ffmpeg`, `ffprobe`, NVIDIA/EGL libraries and DejaVu Sans are also used. Trusted
@@ -432,12 +432,12 @@ env PYTHONPATH="$VIDEO_DEPS${PYTHONPATH:+:$PYTHONPATH}" "$SAM" \
 env PYTHONPATH="$PWD/src:$VIDEO_DEPS${PYTHONPATH:+:$PYTHONPATH}" "$SAM" - <<'PY'
 from pathlib import Path
 import os
-from swam.retargeting.segmentation import track
+from tinywam.retargeting.segmentation import track
 track(
     Path('results/retargeting_import_20261007/screw_unscrew_bottle_cap/source'),
     Path('results/rgb_bottle_sleeves_v1'),
     Path('docs/retargeting/configs/rgb_bottle_sleeves_prompts_v1.json'),
-    sam_root=os.environ['SWAM_SAM_ROOT'],
+    sam_root=os.environ['TINYWAM_SAM_ROOT'],
     native=True, output_size=(960, 540),
 )
 PY
@@ -572,12 +572,12 @@ default crop is NOT the full-image crop used here; specify
 
 | File | Responsibility |
 | --- | --- |
-| `src/swam/retargeting/geometry.py` | Native Sharpa mesh/FK and legacy annotation fitting |
-| `src/swam/retargeting/connected.py` | Historical joint arm/hand fit with optional scale fitting |
-| `src/swam/retargeting/batch.py` | Historical manifest-based collection and resume checks |
-| `src/swam/retargeting/segmentation.py` | SAM prompts, tracking, exclusive labels and output sizing |
-| `src/swam/retargeting/occlusion.py` | Observed-visibility compositing and legacy comparison |
-| `src/swam/retargeting/anchored_arm.py` | Hard wrist constraint and native reverse arm chain |
+| `src/tinywam/retargeting/geometry.py` | Native Sharpa mesh/FK and legacy annotation fitting |
+| `src/tinywam/retargeting/connected.py` | Historical joint arm/hand fit with optional scale fitting |
+| `src/tinywam/retargeting/batch.py` | Historical manifest-based collection and resume checks |
+| `src/tinywam/retargeting/segmentation.py` | SAM prompts, tracking, exclusive labels and output sizing |
+| `src/tinywam/retargeting/occlusion.py` | Observed-visibility compositing and legacy comparison |
+| `src/tinywam/retargeting/anchored_arm.py` | Hard wrist constraint and native reverse arm chain |
 | `scripts/retarget_egodex.py` | Legacy CLI entrypoint |
 | `scripts/compare_egodex_retargeting.py` | Published method comparison and URDF adapters |
 | `scripts/inspect_retarget_annotations.py` | Annotation-to-RGB audit |
@@ -614,7 +614,7 @@ code, weights, source footage or derivatives; this report does not clear them.
 `assets/sharpa/` contains a vendored subset of the upstream revision recorded
 in the environment snapshot: the existing `wave_01` URDF/mesh files and vendor
 README, LICENSE and NOTICE. Its local nested Git metadata is not part of the
-SWAM commit; reproduction does not require initializing a Sharpa submodule.
+Tiny-WAM commit; reproduction does not require initializing a Sharpa submodule.
 
 Open issues are visible human remnants, reliable contact/occlusion under changed
 robot geometry, temporal hand estimation, independent visible-keypoint ground

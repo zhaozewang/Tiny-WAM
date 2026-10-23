@@ -1,5 +1,5 @@
 """Run unmodified upstream retargeters on a fixed-size R1 + Sharpa pilot."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 import copy
 import hashlib
@@ -23,9 +23,9 @@ from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation
 import torch
 import trimesh
-from swam.retargeting.geometry import SharpaHand
-from swam.retargeting.connected import ConnectedHand, tensor, initial_base, transform, rotation
-from swam.r1 import SOURCE, origin_matrix
+from tinywam.retargeting.geometry import SharpaHand
+from tinywam.retargeting.connected import ConnectedHand, tensor, initial_base, transform, rotation
+from tinywam.r1 import SOURCE, origin_matrix
 
 SIDES = ('left', 'right')
 TIPS = [20, 4, 8, 12, 16]

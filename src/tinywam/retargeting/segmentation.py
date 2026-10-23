@@ -36,7 +36,7 @@ def load_frames(source, native):
 def track(source, output, prompt_path, sam_root=None, checkpoint=None, native=False,
           device='cuda', config_name='configs/sam2.1/sam2.1_hiera_l.yaml', output_size=None):
     import torch
-    sam_root = sam_root or os.environ.get('SWAM_SAM_ROOT')
+    sam_root = sam_root or os.environ.get('TINYWAM_SAM_ROOT')
     if sam_root:
         sys.path.insert(0, str(Path(sam_root).resolve()))
     from sam2.build_sam import build_sam2_video_predictor

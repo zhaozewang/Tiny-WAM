@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import imageio.v2 as imageio
 from PIL import Image,ImageDraw
-from swam.shards import atomic_json
+from tinywam.shards import atomic_json
 
 p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);args=p.parse_args()
 report=[]

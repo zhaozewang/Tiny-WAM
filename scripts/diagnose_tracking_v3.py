@@ -9,7 +9,7 @@ import pyrender
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
-from swam.retargeting.geometry import SharpaHand, project
+from tinywam.retargeting.geometry import SharpaHand, project
 
 source = ROOT / 'results/rgb_tracking_v2_fresh_20261008'
 output = ROOT / 'results/rgb_tracking_v3_diagnostics_20261008'

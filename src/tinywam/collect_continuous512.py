@@ -8,12 +8,12 @@ import time
 
 import numpy as np
 
-from swam.r1 import ROOT, assemble, floor_height
-from swam.shards import atomic_json
+from tinywam.r1 import ROOT, assemble, floor_height
+from tinywam.shards import atomic_json
 
 
-from swam.parallel_scene import make_scene
-from swam.collection_contract import original_commands, metadata as sampling_metadata
+from tinywam.parallel_scene import make_scene
+from tinywam.collection_contract import original_commands, metadata as sampling_metadata
 
 
 def policy(seed, center, limits, arm, duration, names):
@@ -60,7 +60,7 @@ def main():
     atomic_json(progress, dict(stage='initializing', ids=args.ids, updated=time.time()))
     launcher = AppLauncher(args)
     context, robot, streams, origins = make_scene(str(args.assets/'asset/r1_isyhand.usd'), height, len(args.ids), args.device, partitions=True, solver_position_iterations=64, solver_velocity_iterations=8)
-    from swam.preview import camera_views
+    from tinywam.preview import camera_views
     import torch
     torch.set_num_threads(4)
     names = robot.joint_names

@@ -8,9 +8,9 @@ The collectors represent different experiments; their settings are not interchan
 
 | Collector | Images | Position/velocity solver iterations | Hand damping | Motion |
 |---|---|---|---|---|
-| `swam.collect` | 256² | 16 / 4 | 0.1 | Original five-second random targets |
-| `swam.collect_long` | 256² | 32 / 8 | 0.3 | v5 bounded targets, 1–3 s knots, holds |
-| `swam.collect_continuous512` | 512² | 64 / 8 | 0.1 | Original one-second targets extended continuously |
+| `tinywam.collect` | 256² | 16 / 4 | 0.1 | Original five-second random targets |
+| `tinywam.collect_long` | 256² | 32 / 8 | 0.3 | v5 bounded targets, 1–3 s knots, holds |
+| `tinywam.collect_continuous512` | 512² | 64 / 8 | 0.1 | Original one-second targets extended continuously |
 
 All use 24 Hz observations/actions and 120 Hz physics. The v5 scene additionally
 sets a 1 mm contact offset. The 512² collector uses visual partitions. See
@@ -27,7 +27,7 @@ Prepare the assembled URDF and converted USD with the existing preview entrypoin
 Collect a single batch of continuous 512² episodes:
 
 ```sh
-python -m swam.collect_continuous512 --root data/continuous512 \
+python -m tinywam.collect_continuous512 --root data/continuous512 \
   --assets results/collection_assets --ids 0 1 --seconds 600 --device cuda:0
 ```
 

@@ -15,27 +15,27 @@ def repo_path(relative=''):
 
 
 def data_path(relative=''):
-    return configured_path('SWAM_DATA_ROOT', ROOT / 'data', relative)
+    return configured_path('TINYWAM_DATA_ROOT', ROOT / 'data', relative)
 
 
 def model_path(relative=''):
     relative = relative.replace('flow_tokenizers_v5', 'tokenizers', 1)
-    return configured_path('SWAM_MODEL_ROOT', ROOT / 'artifacts', relative)
+    return configured_path('TINYWAM_MODEL_ROOT', ROOT / 'artifacts', relative)
 
 
 def external_path(component, relative=''):
-    variable = 'SWAM_' + component.upper().replace('-', '_') + '_ROOT'
+    variable = 'TINYWAM_' + component.upper().replace('-', '_') + '_ROOT'
     return configured_path(variable, ROOT / 'external' / component, relative)
 
 
 def cache_path(relative=''):
-    default = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache')) / 'tiny-wam'
-    return configured_path('SWAM_CACHE_ROOT', default, relative)
+    default = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache')) / 'tinywam'
+    return configured_path('TINYWAM_CACHE_ROOT', default, relative)
 
 
 def asset_filename(filename):
     """Resolve saved URDF asset references without knowing their original machine."""
-    root = Path(configured_path('SWAM_ASSETS_ROOT', ROOT / 'assets'))
+    root = Path(configured_path('TINYWAM_ASSETS_ROOT', ROOT / 'assets'))
     parts = filename.replace('\\', '/').split('/assets/', 1)
     if len(parts) == 2:
         return str(root / parts[1])

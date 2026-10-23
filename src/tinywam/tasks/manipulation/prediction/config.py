@@ -49,7 +49,7 @@ class Training:
     seed: int = 42
     optimizer: str = 'adamw8bit'
     wandb_mode: str = 'disabled'
-    wandb_project: str = 'swam'
+    wandb_project: str = 'tinywam'
     wandb_entity: str | None = None
 
     def __post_init__(self):

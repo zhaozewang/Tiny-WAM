@@ -1,5 +1,5 @@
 """Measure serial versus two-process fitting on the same six development frames."""
-from swam.paths import external_path
+from tinywam.paths import external_path
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import json

@@ -1,9 +1,9 @@
 """Transactional RGB-lossless MP4 migration of completed dataset shards."""
-from swam.paths import data_path
+from tinywam.paths import data_path
 import argparse,fcntl,hashlib,io,json,os,shutil,subprocess,tarfile,time,traceback
 from pathlib import Path
 import numpy as np
-from swam.shards import atomic_json,sha256,publish_episode
+from tinywam.shards import atomic_json,sha256,publish_episode
 
 import threading
 COMMIT_LOCK=threading.Lock()
@@ -112,7 +112,7 @@ def convert(source,status):
             if not log.closed:log.close()
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,default=Path(data_path('swam')));p.add_argument('--dataset');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,default=Path(data_path('tinywam')));p.add_argument('--dataset');a=p.parse_args()
     status=a.base/'mp4_conversion_status.json';lock=(a.base/'.mp4_conversion.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     roots=[a.base/a.dataset] if a.dataset else sorted(r for r in a.base.iterdir() if r.is_dir())
     jobs=[];dataset_locks=[]
@@ -155,5 +155,5 @@ if __name__=='__main__':
     except BaseException:
         error=traceback.format_exc();print(error,flush=True)
         # Preserve both the old shard and any verified pending transaction for recovery.
-        base=Path(data_path('swam'));atomic_json(base/'mp4_conversion_status.json',dict(stage='failed',error=error,updated=time.time()))
+        base=Path(data_path('tinywam'));atomic_json(base/'mp4_conversion_status.json',dict(stage='failed',error=error,updated=time.time()))
         raise

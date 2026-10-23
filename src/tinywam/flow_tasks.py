@@ -6,7 +6,7 @@ normalized qpos, not the qpos/qvel proprioception VAE latent. The returned goal
 role is represented by the model's single shared condition embedding.
 """
 import torch
-from swam.flow_model import make_noisy
+from tinywam.flow_model import make_noisy
 
 
 def prepare_window(images, proprio, actions, joint_positions, times, *, task=None,

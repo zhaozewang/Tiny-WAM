@@ -7,7 +7,7 @@ import shutil
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from swam.r1 import ROOT, COMMIT, assemble, floor_height, poses, solve_pose
+from tinywam.r1 import ROOT, COMMIT, assemble, floor_height, poses, solve_pose
 
 
 def convert(output):
@@ -46,7 +46,7 @@ def scene(asset, height, device, with_table=True):
     import isaaclab.sim as sim
     from isaaclab.assets import Articulation, ArticulationCfg
     from isaaclab.actuators import ImplicitActuatorCfg
-    from swam.workcell import spawn_workcell
+    from tinywam.workcell import spawn_workcell
     import omni.replicator.core as rep
 
     context = sim.SimulationContext(sim.SimulationCfg(dt=1 / 120, device=device))
@@ -277,8 +277,8 @@ def main():
     else:
         angles, ik = solve_pose(xml, height)
     print('IK', ik, flush=True)
-    for source in [Path(__file__), ROOT / 'src/swam/r1.py',
-                   ROOT / 'src/swam/workcell.py']:
+    for source in [Path(__file__), ROOT / 'src/tinywam/r1.py',
+                   ROOT / 'src/tinywam/workcell.py']:
         shutil.copy2(source, output / source.name)
 
     launcher = AppLauncher(args)

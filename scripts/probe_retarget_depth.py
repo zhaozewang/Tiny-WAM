@@ -10,7 +10,7 @@ from PIL import Image,ImageDraw
 import pyrender
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from swam.retargeting.geometry import SharpaHand
+from tinywam.retargeting.geometry import SharpaHand
 
 
 def run(args):

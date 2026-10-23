@@ -33,7 +33,7 @@ def run(root):
             before={s:sum(sum(int(p['is_right'])==side for p in r['wilor'])==1 for r in initial) for s,side in [('left',0),('right',1)]},
             after={s:sum(sum(int(p['is_right'])==side for p in r['wilor'])==1 for r in predicted) for s,side in [('left',0),('right',1)]}))
     hashes=json.loads((root/'code_hashes.json').read_text())
-    algorithm_files=[p for p in hashes if p.startswith('src/swam/retargeting/') or Path(p).name in
+    algorithm_files=[p for p in hashes if p.startswith('src/tinywam/retargeting/') or Path(p).name in
                      ('reestimate_egodex_rgb.py','render_rgb_robot_hands.py','refine_rgb_hand_alignment.py','fit_arms_to_frozen_hands.py','repair_rgb_retarget_batch.py')]
     unchanged={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==hashes[p] for p in algorithm_files}
     assert all(unchanged.values()),'Algorithm changed during heldout run'
